@@ -330,7 +330,7 @@ namespace appPokemon
             else
             {
                 ataque3.Text = "Null";
-            } 
+            }
 
             var ataque4 = new Button
             {
