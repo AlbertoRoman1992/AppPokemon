@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:appPokemon"
+             x:Class="appPokemon.MainPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry x:Name="pokemonID" Placeholder="Introduce el Pokemon que desees" HorizontalTextAlignment="Center"/>
+            <Button x:Name="buscarPokemon" Text="Ok" VerticalOptions="Center"/>
+            <ActivityIndicator x:Name="loading" IsVisible="False" IsRunning="False" HorizontalOptions="Center" VerticalOptions="Center" Color="Blue"></ActivityIndicator>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
