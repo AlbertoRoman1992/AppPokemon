@@ -249,7 +249,8 @@ namespace appPokemon
 
             var ataque1 = new Button
             {
-                FontSize = 10
+                FontSize = 10,
+                Text = "Null"
             };
 
             if (GlobalVar.pokemonAmigo.abilities.Count() > 0)
@@ -258,17 +259,14 @@ namespace appPokemon
 
                 ataque1.Clicked += (sender, ea) =>
                 {
-                    AtaqueAsync(GlobalVar.pokemonAmigo.abilities[0].slot).ConfigureAwait(true);
+                    AtaqueAmigoAsync(GlobalVar.pokemonAmigo.abilities[0].slot).ConfigureAwait(true);
                 };
-            }
-            else
-            {
-                ataque1.Text = "Null";
             }
 
             var ataque2 = new Button
             {
-                FontSize = 10
+                FontSize = 10,
+                Text = "Null"
             };
 
             if (GlobalVar.pokemonAmigo.abilities.Count() > 1)
@@ -277,17 +275,14 @@ namespace appPokemon
 
                 ataque2.Clicked += (sender, ea) =>
                 {
-                    AtaqueAsync(GlobalVar.pokemonAmigo.abilities[1].slot).ConfigureAwait(true);
+                    AtaqueAmigoAsync(GlobalVar.pokemonAmigo.abilities[1].slot).ConfigureAwait(true);
                 };
-            }
-            else
-            {
-                ataque2.Text = "Null";
             }
 
             var ataque3 = new Button
             {
-                FontSize = 10
+                FontSize = 10,
+                Text = "Null"
             };
 
             if (GlobalVar.pokemonAmigo.abilities.Count() > 2)
@@ -296,17 +291,14 @@ namespace appPokemon
 
                 ataque3.Clicked += (sender, ea) =>
                 {
-                    AtaqueAsync(GlobalVar.pokemonAmigo.abilities[2].slot).ConfigureAwait(true);
+                    AtaqueAmigoAsync(GlobalVar.pokemonAmigo.abilities[2].slot).ConfigureAwait(true);
                 };
-            }
-            else
-            {
-                ataque3.Text = "Null";
             }
 
             var ataque4 = new Button
             {
-                FontSize = 10
+                FontSize = 10,
+                Text = "Null"
             };
 
             if (GlobalVar.pokemonAmigo.abilities.Count() > 3)
@@ -315,12 +307,8 @@ namespace appPokemon
 
                 ataque4.Clicked += (sender, ea) =>
                 {
-                    AtaqueAsync(GlobalVar.pokemonAmigo.abilities[3].slot).ConfigureAwait(true);
+                    AtaqueAmigoAsync(GlobalVar.pokemonAmigo.abilities[3].slot).ConfigureAwait(true);
                 };
-            }
-            else
-            {
-                ataque4.Text = "Null";
             }
 
             gridControles.Children.Add(ataque1, 0, 0);
@@ -331,7 +319,7 @@ namespace appPokemon
             return gridControles;
         }
 
-        public async Task AtaqueAsync(int golpe)
+        public async Task AtaqueAmigoAsync(int golpe)
         {
             await GlobalVar.ImagenAmigo.TranslateTo(-50, 50, 75);
             await GlobalVar.ImagenAmigo.TranslateTo(50, -50, 35);
@@ -344,6 +332,23 @@ namespace appPokemon
             GlobalVar.HpDatosEnemigo.Text = GlobalVar.pokemonEnemigoHp.ToString() + "/" + GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
 
             await GlobalVar.ImagenAmigo.TranslateTo(0, 0, 90);
+
+            await AtaqueEnemigoAsync();
+        }
+
+        public async Task AtaqueEnemigoAsync()
+        {
+            await GlobalVar.ImagenEnemigo.TranslateTo(50, -50, 75);
+            await GlobalVar.ImagenEnemigo.TranslateTo(-50, 50, 35);
+
+            await GlobalVar.ImagenAmigo.TranslateTo(-25, 25, 35);
+            await GlobalVar.ImagenAmigo.TranslateTo(0, 0, 35);
+
+            GlobalVar.golpeAmigo(GlobalVar.pokemonAmigo.abilities[new Random(DateTime.Now.Millisecond).Next(GlobalVar.pokemonAmigo.abilities.Count())].slot);
+            await GlobalVar.HpBarAmigo.ProgressTo((GlobalVar.pokemonAmigoHp / GlobalVar.pokemonAmigo.stats.Where(x => x.stat.name == "hp").First().base_stat), 250, Easing.Linear);
+            GlobalVar.HpDatosAmigo.Text = GlobalVar.pokemonAmigoHp.ToString() + "/" + GlobalVar.pokemonAmigo.stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
+
+            await GlobalVar.ImagenEnemigo.TranslateTo(0, 0, 90);
         }
     }
 }
