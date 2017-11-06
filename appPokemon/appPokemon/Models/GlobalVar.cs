@@ -18,6 +18,8 @@ namespace appPokemon.Models
             HpBarEnemigo = new ProgressBar();
             HpDatosAmigo = new Label();
             HpDatosEnemigo = new Label();
+            ImagenAmigo = new Image();
+            ImagenEnemigo = new Image();
         }
 
         public static string pokemonID { get; set; }
@@ -32,25 +34,29 @@ namespace appPokemon.Models
 
         public static void golpeAmigo(int golpe)
         {
-            if(pokemonAmigoHp >= golpe)
+            if(pokemonAmigoHp > golpe)
             {
                 pokemonAmigoHp += -golpe;
             }
             else
             {
                 pokemonAmigoHp = 0;
+
+                ImagenAmigo.RotateTo(180);
             }
         }
 
         public static void golpeEnemigo(int golpe)
         {
-            if (pokemonEnemigoHp >= golpe)
+            if (pokemonEnemigoHp > golpe)
             {
                 pokemonEnemigoHp += -golpe;
             }
             else
             {
                 pokemonEnemigoHp = 0;
+
+                ImagenEnemigo.RotateTo(180);
             }
         }
 
@@ -61,5 +67,9 @@ namespace appPokemon.Models
         public static Label HpDatosAmigo { get; set; }
 
         public static Label HpDatosEnemigo { get; set; }
+
+        public static Image ImagenAmigo { get; set; }
+
+        public static Image ImagenEnemigo { get; set; }
     }
 }
