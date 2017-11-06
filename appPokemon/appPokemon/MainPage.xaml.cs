@@ -34,10 +34,10 @@ namespace appPokemon
                     {
                         if (!GlobalVar.pokemonID.StartsWith(" "))
                         {
-                            lbLoading.Text = "LOADING";
                             GlobalVar.pokemonID = txtPokemon.Text;
                             if (rep.ObtenerPokemon(GlobalVar.pokemonID) != null)
                             {
+                                lbLoading.Text = "LOADING";
                                 indicator.IsRunning = true;
                                 indicator.IsVisible = true;
                                 Device.BeginInvokeOnMainThread(async () =>
@@ -47,11 +47,20 @@ namespace appPokemon
                             }
                             else
                             {
-                                indicator.IsRunning = false;
-                                indicator.IsVisible = false;
-                                lbLoading.Text = "El pokemon introducido no existe";
+                                lbPokemon.TextColor = Color.Red;
+                                lbPokemon.Text = "El pokemon introducido no existe";
                             }
                         }
+                        else
+                        {
+                            lbPokemon.TextColor = Color.Red;
+                            lbPokemon.Text = "El pokemon introducido no existe";
+                        }
+                    }
+                    else
+                    {
+                        lbPokemon.TextColor = Color.Red;
+                        lbPokemon.Text = "El pokemon introducido no existe";
                     }
                 }
                 else
