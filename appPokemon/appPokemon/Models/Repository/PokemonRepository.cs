@@ -50,6 +50,29 @@ namespace appPokemon.Models.Repository
             return null;
         }
 
+        public bool ObtenerLogin(string username, string password)
+        {
+            client = GetHttpClient("https://apppokemon-ffdfb.firebaseio.com/");
+
+            HttpResponseMessage response = client.GetAsync(".json").Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                var resultContent = response.Content.ReadAsStringAsync().Result;
+                Models.User.RootObject user = JsonConvert.DeserializeObject<Models.User.RootObject>(resultContent);
+                foreach (var ser in user.users)
+                {
+                    if(ser.name == username && ser.pass == password)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            return false;
+        }
+
         public Stat.RootObject ObtenerStat(string url)
         {
             client = GetHttpClient(url);

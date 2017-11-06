@@ -14,6 +14,7 @@ namespace appPokemon
     public partial class MainPage : ContentPage
     {
         PokemonRepository rep = new PokemonRepository();
+        FirebaseRepository frep = new FirebaseRepository();
 
         public MainPage()
         {
@@ -22,32 +23,70 @@ namespace appPokemon
 
             btPokemon.Clicked += LoadingActive;
 
-            void LoadingActive(object sender, EventArgs e)
+            void LoadingActive(Object sender, EventArgs e)
             {
-                GlobalVar.pokemonID = txtPokemon.Text;
-                if (GlobalVar.pokemonID != null)
+                
+                if(rep.ObtenerLogin(txtUsername.Text, txtPass.Text))
                 {
-                    if (!GlobalVar.pokemonID.StartsWith(" "))
+
+                    GlobalVar.pokemonID = txtPokemon.Text;
+                    if (GlobalVar.pokemonID != null)
                     {
-                        lbLoading.Text = "LOADING";
-                        GlobalVar.pokemonID = txtPokemon.Text;
-                        if (rep.ObtenerPokemon(GlobalVar.pokemonID) != null)
+                        if (!GlobalVar.pokemonID.StartsWith(" "))
                         {
-                            indicator.IsRunning = true;
-                            indicator.IsVisible = true;
-                            Device.BeginInvokeOnMainThread(async () => {
-                                await Navigation.PushAsync(new BattlePage());
-                            });
-                        }
-                        else
-                        {
-                            indicator.IsRunning = false;
-                            indicator.IsVisible = false;
-                            lbLoading.Text = "El pokemon introducido no existe";
+                            lbLoading.Text = "LOADING";
+                            GlobalVar.pokemonID = txtPokemon.Text;
+                            if (rep.ObtenerPokemon(GlobalVar.pokemonID) != null)
+                            {
+                                indicator.IsRunning = true;
+                                indicator.IsVisible = true;
+                                Device.BeginInvokeOnMainThread(async () =>
+                                {
+                                    await Navigation.PushAsync(new BattlePage());
+                                });
+                            }
+                            else
+                            {
+                                indicator.IsRunning = false;
+                                indicator.IsVisible = false;
+                                lbLoading.Text = "El pokemon introducido no existe";
+                            }
                         }
                     }
                 }
+                else
+                {
+                    lbUsername.TextColor = Color.Red;
+                    lbUsername.Text = "Usuario o contraseña incorrecta";
+                }
             }
+
+            //void LoadingActive(object sender, EventArgs e)
+            //{
+            //    GlobalVar.pokemonID = txtPokemon.Text;
+            //    if (GlobalVar.pokemonID != null)
+            //    {
+            //        if (!GlobalVar.pokemonID.StartsWith(" "))
+            //        {
+            //            lbLoading.Text = "LOADING";
+            //            GlobalVar.pokemonID = txtPokemon.Text;
+            //            if (rep.ObtenerPokemon(GlobalVar.pokemonID) != null)
+            //            {
+            //                indicator.IsRunning = true;
+            //                indicator.IsVisible = true;
+            //                Device.BeginInvokeOnMainThread(async () => {
+            //                    await Navigation.PushAsync(new BattlePage());
+            //                });
+            //            }
+            //            else
+            //            {
+            //                indicator.IsRunning = false;
+            //                indicator.IsVisible = false;
+            //                lbLoading.Text = "El pokemon introducido no existe";
+            //            }
+            //        }
+            //    }
+            //}
         }
     }
 }
