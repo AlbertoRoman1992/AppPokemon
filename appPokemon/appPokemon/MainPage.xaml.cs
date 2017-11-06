@@ -1,4 +1,5 @@
 ﻿using appPokemon.Models;
+using appPokemon.Models.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,21 +13,41 @@ namespace appPokemon
 {
     public partial class MainPage : ContentPage
     {
+        PokemonRepository rep = new PokemonRepository();
+
         public MainPage()
         {
+
             InitializeComponent();
-            
-            buscarPokemon.Clicked += BuscarPokemonClicked;
-        }
 
-        public void BuscarPokemonClicked(object sender, EventArgs e)
-        {
-            loading.IsVisible = true;
-            loading.IsRunning = true;
+            btPokemon.Clicked += LoadingActive;
 
-            GlobalVar.pokemonID = pokemonID.Text;
-
-            Navigation.PushAsync(new BattlePage()).ConfigureAwait(false);
+            void LoadingActive(object sender, EventArgs e)
+            {
+                GlobalVar.pokemonID = txtPokemon.Text;
+                if (GlobalVar.pokemonID != null)
+                {
+                    if (!GlobalVar.pokemonID.StartsWith(" "))
+                    {
+                        lbLoading.Text = "LOADING";
+                        GlobalVar.pokemonID = txtPokemon.Text;
+                        if (rep.ObtenerPokemon(GlobalVar.pokemonID) != null)
+                        {
+                            indicator.IsRunning = true;
+                            indicator.IsVisible = true;
+                            Device.BeginInvokeOnMainThread(async () => {
+                                await Navigation.PushAsync(new BattlePage());
+                            });
+                        }
+                        else
+                        {
+                            indicator.IsRunning = false;
+                            indicator.IsVisible = false;
+                            lbLoading.Text = "El pokemon introducido no existe";
+                        }
+                    }
+                }
+            }
         }
     }
 }
