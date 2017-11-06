@@ -18,6 +18,8 @@ namespace appPokemon.Models
             HpBarEnemigo = new ProgressBar();
             HpDatosAmigo = new Label();
             HpDatosEnemigo = new Label();
+            XpBarAmigo = new ProgressBar();
+            XpBarEnemigo = new ProgressBar();
             ImagenAmigo = new Image();
             ImagenEnemigo = new Image();
         }
@@ -67,6 +69,10 @@ namespace appPokemon.Models
         public static Label HpDatosAmigo { get; set; }
 
         public static Label HpDatosEnemigo { get; set; }
+
+        public static ProgressBar XpBarAmigo { get; set; }
+
+        public static ProgressBar XpBarEnemigo { get; set; }
 
         public static Image ImagenAmigo { get; set; }
 

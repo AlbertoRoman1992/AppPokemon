@@ -23,7 +23,7 @@ namespace appPokemon
             rep = new PokemonRepository();
 
             GlobalVar.pokemonAmigo = rep.ObtenerPokemon(GlobalVar.pokemonID);
-            GlobalVar.pokemonEnemigo = rep.ObtenerPokemon("bulbasaur");
+            GlobalVar.pokemonEnemigo = rep.ObtenerPokemon(new Random(DateTime.Now.Millisecond).Next(1, 803).ToString());
 
             GlobalVar x = new GlobalVar();
 
@@ -56,8 +56,6 @@ namespace appPokemon
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 
-                GlobalVar.ImagenAmigo.BackgroundColor = Color.Blue;
-
                 GlobalVar.ImagenAmigo.Source = new UriImageSource
                 {
                     Uri = new Uri(GlobalVar.pokemonAmigo.sprites.back_default)
@@ -70,8 +68,6 @@ namespace appPokemon
             {
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
-
-                GlobalVar.ImagenEnemigo.BackgroundColor = Color.Blue;
 
                 GlobalVar.ImagenEnemigo.Source = new UriImageSource
                 {
@@ -104,7 +100,7 @@ namespace appPokemon
                 Text = "Información de la Batalla",
                 VerticalTextAlignment = TextAlignment.Start,
                 HorizontalTextAlignment = TextAlignment.Center,
-                BackgroundColor = Color.Green
+                BackgroundColor = Color.Gray
             };
 
             gridMenu.Children.Add(info, 0, 0);
@@ -113,9 +109,9 @@ namespace appPokemon
             return gridMenu;
         }
 
-        public string CalculaGenero(Models.Pokemon.RootObject pokemon)
+        public string CalculaGenero(bool hembra)
         {
-            if (new Random(DateTime.Now.Millisecond).Next(1) == 0 || pokemon.sprites.front_female != null)
+            if (new Random(DateTime.Now.Millisecond).Next(1) == 0 || hembra)
                 return "♀";
 
             return "♂";
@@ -123,17 +119,12 @@ namespace appPokemon
 
         public string CalculaNivel()
         {
-            return new Random(DateTime.Now.Millisecond).Next(100).ToString();
+            return new Random(DateTime.Now.Millisecond).Next(1, 101).ToString();
         }
 
         public Grid GenerarGridDatos(bool amigo)
         {
             var gridDatos = new Grid();
-
-            var XpBar = new ProgressBar
-            {
-                BackgroundColor = Color.Red
-            };
 
             if (amigo == true)
             {
@@ -141,10 +132,10 @@ namespace appPokemon
                 gridDatos.RowDefinitions.Add(new RowDefinition { Height = new GridLength(2, GridUnitType.Star) });
                 gridDatos.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
-                XpBar.Progress = GlobalVar.pokemonAmigo.base_experience / GlobalVar.pokemonAmigo.base_experience;
+                GlobalVar.XpBarAmigo.Progress = GlobalVar.pokemonAmigo.base_experience / GlobalVar.pokemonAmigo.base_experience;
 
                 gridDatos.Children.Add(GenerarGridValores(amigo), 0, 1);
-                gridDatos.Children.Add(XpBar, 0, 2);
+                gridDatos.Children.Add(GlobalVar.XpBarAmigo, 0, 2);
             }
             else
             {
@@ -152,10 +143,10 @@ namespace appPokemon
                 gridDatos.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
                 gridDatos.RowDefinitions.Add(new RowDefinition { Height = new GridLength(3, GridUnitType.Star) });
 
-                XpBar.Progress = GlobalVar.pokemonEnemigo.base_experience / GlobalVar.pokemonEnemigo.base_experience;
+                GlobalVar.XpBarEnemigo.Progress = GlobalVar.pokemonEnemigo.base_experience / GlobalVar.pokemonEnemigo.base_experience;
 
                 gridDatos.Children.Add(GenerarGridValores(amigo), 0, 0);
-                gridDatos.Children.Add(XpBar, 0, 1);
+                gridDatos.Children.Add(GlobalVar.XpBarEnemigo, 0, 1);
             }
 
             return gridDatos;
@@ -174,15 +165,13 @@ namespace appPokemon
             {
                 VerticalTextAlignment = TextAlignment.Start,
                 HorizontalTextAlignment = TextAlignment.Center,
-                BackgroundColor = Color.Red,
                 FontSize = 8
             };
 
             var Hp = new Label
             {
                 VerticalTextAlignment = TextAlignment.Start,
-                HorizontalTextAlignment = TextAlignment.Center,
-                BackgroundColor = Color.Red,
+                HorizontalTextAlignment = TextAlignment.End,
                 FontSize = 8
             };
 
@@ -190,7 +179,6 @@ namespace appPokemon
             {
                 VerticalTextAlignment = TextAlignment.Start,
                 HorizontalTextAlignment = TextAlignment.Center,
-                BackgroundColor = Color.Red,
                 FontSize = 8
             };
 
@@ -198,13 +186,13 @@ namespace appPokemon
             {
                 Nombre.Text = GlobalVar.pokemonAmigo.name;
                 Hp.Text = rep.ObtenerStat(GlobalVar.pokemonAmigo.stats.Where(x => x.stat.name == "hp").First().stat.url).names.Where(x => x.language.name == "es").First().name;
-                Nivel.Text = CalculaGenero(GlobalVar.pokemonAmigo) + " Nv " + CalculaNivel();
+                Nivel.Text = CalculaGenero(GlobalVar.pokemonAmigo.sprites.front_female != null) + " Nv " + CalculaNivel();
             }
             else
             {
                 Nombre.Text = GlobalVar.pokemonEnemigo.name;
                 Hp.Text = rep.ObtenerStat(GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().stat.url).names.Where(x => x.language.name == "es").First().name;
-                Nivel.Text = CalculaGenero(GlobalVar.pokemonEnemigo) + " Nv " + CalculaNivel();
+                Nivel.Text = CalculaGenero(GlobalVar.pokemonEnemigo.sprites.front_female != null) + " Nv " + CalculaNivel();
             }
 
             gridValores.Children.Add(Nombre, 0, 0);
@@ -224,13 +212,11 @@ namespace appPokemon
 
             if (amigo == true)
             {
-                GlobalVar.HpBarAmigo.BackgroundColor = Color.Red;
                 GlobalVar.HpBarAmigo.Progress = GlobalVar.pokemonAmigoHp / GlobalVar.pokemonAmigo.stats.Where(x => x.stat.name == "hp").First().base_stat;
 
                 GlobalVar.HpDatosAmigo.Text = GlobalVar.pokemonAmigoHp.ToString() + "/" + GlobalVar.pokemonAmigo.stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
                 GlobalVar.HpDatosAmigo.VerticalTextAlignment = TextAlignment.Start;
                 GlobalVar.HpDatosAmigo.HorizontalTextAlignment = TextAlignment.Center;
-                GlobalVar.HpDatosAmigo.BackgroundColor = Color.Red;
                 GlobalVar.HpDatosAmigo.FontSize = 8;
 
                 gridPs.Children.Add(GlobalVar.HpBarAmigo, 0, 0);
@@ -238,13 +224,11 @@ namespace appPokemon
             }
             else
             {
-                GlobalVar.HpBarEnemigo.BackgroundColor = Color.Red;
                 GlobalVar.HpBarEnemigo.Progress = GlobalVar.pokemonEnemigoHp / GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat;
 
                 GlobalVar.HpDatosEnemigo.Text = GlobalVar.pokemonEnemigoHp.ToString() + "/" + GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
                 GlobalVar.HpDatosEnemigo.VerticalTextAlignment = TextAlignment.Start;
                 GlobalVar.HpDatosEnemigo.HorizontalTextAlignment = TextAlignment.Center;
-                GlobalVar.HpDatosEnemigo.BackgroundColor = Color.Red;
                 GlobalVar.HpDatosEnemigo.FontSize = 8;
 
                 gridPs.Children.Add(GlobalVar.HpBarEnemigo, 0, 0);
@@ -270,17 +254,11 @@ namespace appPokemon
 
             if (GlobalVar.pokemonAmigo.abilities.Count() > 0)
             {
-                ataque1.Text = GlobalVar.pokemonAmigo.abilities[0].ability.name;
+                ataque1.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigo.abilities[0].ability.url).names.Where(x => x.language.name == "es").First().name;
 
-                ataque1.Clicked += async delegate
+                ataque1.Clicked += (sender, ea) =>
                 {
-                    await GlobalVar.ImagenAmigo.TranslateTo(50, -50, 50);
-
-                    GlobalVar.golpeEnemigo(GlobalVar.pokemonAmigo.abilities[0].slot);
-                    await GlobalVar.HpBarEnemigo.ProgressTo((GlobalVar.pokemonEnemigoHp / GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat), 250, Easing.Linear);
-                    GlobalVar.HpDatosEnemigo.Text = GlobalVar.pokemonEnemigoHp.ToString() + "/" + GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
-
-                    await GlobalVar.ImagenAmigo.TranslateTo(0, 0, 120);
+                    AtaqueAsync(GlobalVar.pokemonAmigo.abilities[0].slot).ConfigureAwait(true);
                 };
             }
             else
@@ -295,17 +273,11 @@ namespace appPokemon
 
             if (GlobalVar.pokemonAmigo.abilities.Count() > 1)
             {
-                ataque2.Text = GlobalVar.pokemonAmigo.abilities[1].ability.name;
+                ataque2.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigo.abilities[1].ability.url).names.Where(x => x.language.name == "es").First().name;
 
-                ataque2.Clicked += async delegate
+                ataque2.Clicked += (sender, ea) =>
                 {
-                    await GlobalVar.ImagenAmigo.TranslateTo(50, -50, 50);
-
-                    GlobalVar.golpeEnemigo(GlobalVar.pokemonAmigo.abilities[1].slot);
-                    await GlobalVar.HpBarEnemigo.ProgressTo((GlobalVar.pokemonEnemigoHp / GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat), 250, Easing.Linear);
-                    GlobalVar.HpDatosEnemigo.Text = GlobalVar.pokemonEnemigoHp.ToString() + "/" + GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
-
-                    await GlobalVar.ImagenAmigo.TranslateTo(0, 0, 120);
+                    AtaqueAsync(GlobalVar.pokemonAmigo.abilities[1].slot).ConfigureAwait(true);
                 };
             }
             else
@@ -320,17 +292,11 @@ namespace appPokemon
 
             if (GlobalVar.pokemonAmigo.abilities.Count() > 2)
             {
-                ataque3.Text = GlobalVar.pokemonAmigo.abilities[2].ability.name;
+                ataque3.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigo.abilities[2].ability.url).names.Where(x => x.language.name == "es").First().name;
 
-                ataque3.Clicked += async delegate
+                ataque3.Clicked += (sender, ea) =>
                 {
-                    await GlobalVar.ImagenAmigo.TranslateTo(50, -50, 50);
-
-                    GlobalVar.golpeEnemigo(GlobalVar.pokemonAmigo.abilities[2].slot);
-                    await GlobalVar.HpBarEnemigo.ProgressTo((GlobalVar.pokemonEnemigoHp / GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat), 250, Easing.Linear);
-                    GlobalVar.HpDatosEnemigo.Text = GlobalVar.pokemonEnemigoHp.ToString() + "/" + GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
-
-                    await GlobalVar.ImagenAmigo.TranslateTo(0, 0, 120);
+                    AtaqueAsync(GlobalVar.pokemonAmigo.abilities[2].slot).ConfigureAwait(true);
                 };
             }
             else
@@ -345,17 +311,11 @@ namespace appPokemon
 
             if (GlobalVar.pokemonAmigo.abilities.Count() > 3)
             {
-                ataque4.Text = GlobalVar.pokemonAmigo.abilities[3].ability.name;
+                ataque4.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigo.abilities[3].ability.url).names.Where(x => x.language.name == "es").First().name;
 
-                ataque4.Clicked += async delegate
+                ataque4.Clicked += (sender, ea) =>
                 {
-                    await GlobalVar.ImagenAmigo.TranslateTo(50, -50, 50);
-
-                    GlobalVar.golpeEnemigo(GlobalVar.pokemonAmigo.abilities[3].slot);
-                    await GlobalVar.HpBarEnemigo.ProgressTo((GlobalVar.pokemonEnemigoHp / GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat), 250, Easing.Linear);
-                    GlobalVar.HpDatosEnemigo.Text = GlobalVar.pokemonEnemigoHp.ToString() + "/" + GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
-
-                    await GlobalVar.ImagenAmigo.TranslateTo(0, 0, 120);
+                    AtaqueAsync(GlobalVar.pokemonAmigo.abilities[3].slot).ConfigureAwait(true);
                 };
             }
             else
@@ -369,6 +329,21 @@ namespace appPokemon
             gridControles.Children.Add(ataque4, 1, 1);
 
             return gridControles;
+        }
+
+        public async Task AtaqueAsync(int golpe)
+        {
+            await GlobalVar.ImagenAmigo.TranslateTo(-50, 50, 75);
+            await GlobalVar.ImagenAmigo.TranslateTo(50, -50, 35);
+
+            await GlobalVar.ImagenEnemigo.TranslateTo(25, -25, 35);
+            await GlobalVar.ImagenEnemigo.TranslateTo(0, 0, 35);
+
+            GlobalVar.golpeEnemigo(golpe);
+            await GlobalVar.HpBarEnemigo.ProgressTo((GlobalVar.pokemonEnemigoHp / GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat), 250, Easing.Linear);
+            GlobalVar.HpDatosEnemigo.Text = GlobalVar.pokemonEnemigoHp.ToString() + "/" + GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
+
+            await GlobalVar.ImagenAmigo.TranslateTo(0, 0, 90);
         }
     }
 }
