@@ -256,9 +256,9 @@ namespace appPokemon
             {
                 ataque1.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigo.abilities[0].ability.url).names.Where(x => x.language.name == "es").First().name;
 
-                ataque1.Clicked += async delegate
+                ataque1.Clicked += (sender, ea) =>
                 {
-                    await AtaqueAsync(GlobalVar.pokemonAmigo.abilities[0].slot);
+                    AtaqueAsync(GlobalVar.pokemonAmigo.abilities[0].slot).ConfigureAwait(true);
                 };
             }
             else
@@ -275,9 +275,9 @@ namespace appPokemon
             {
                 ataque2.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigo.abilities[1].ability.url).names.Where(x => x.language.name == "es").First().name;
 
-                ataque2.Clicked += async delegate
+                ataque2.Clicked += (sender, ea) =>
                 {
-                    await AtaqueAsync(GlobalVar.pokemonAmigo.abilities[1].slot);
+                    AtaqueAsync(GlobalVar.pokemonAmigo.abilities[1].slot).ConfigureAwait(true);
                 };
             }
             else
@@ -294,9 +294,9 @@ namespace appPokemon
             {
                 ataque3.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigo.abilities[2].ability.url).names.Where(x => x.language.name == "es").First().name;
 
-                ataque3.Clicked += async delegate
+                ataque3.Clicked += (sender, ea) =>
                 {
-                    await AtaqueAsync(GlobalVar.pokemonAmigo.abilities[2].slot);
+                    AtaqueAsync(GlobalVar.pokemonAmigo.abilities[2].slot).ConfigureAwait(true);
                 };
             }
             else
@@ -313,9 +313,9 @@ namespace appPokemon
             {
                 ataque4.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigo.abilities[3].ability.url).names.Where(x => x.language.name == "es").First().name;
 
-                ataque4.Clicked += async delegate
+                ataque4.Clicked += (sender, ea) =>
                 {
-                    await AtaqueAsync(GlobalVar.pokemonAmigo.abilities[3].slot);
+                    AtaqueAsync(GlobalVar.pokemonAmigo.abilities[3].slot).ConfigureAwait(true);
                 };
             }
             else
