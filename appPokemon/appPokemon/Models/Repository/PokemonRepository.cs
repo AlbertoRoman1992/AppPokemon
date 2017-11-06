@@ -65,5 +65,21 @@ namespace appPokemon.Models.Repository
 
             return null;
         }
+
+        public Ability.RootObject ObtenerAbility(string url)
+        {
+            client = GetHttpClient(url);
+
+            HttpResponseMessage response = client.GetAsync(url).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                var resultContent = response.Content.ReadAsStringAsync().Result;
+                Ability.RootObject respuesta = JsonConvert.DeserializeObject<Ability.RootObject>(resultContent);
+                return respuesta;
+            }
+
+            return null;
+        }
     }
 }

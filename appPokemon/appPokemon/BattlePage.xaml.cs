@@ -270,7 +270,7 @@ namespace appPokemon
 
             if (GlobalVar.pokemonAmigo.abilities.Count() > 0)
             {
-                ataque1.Text = GlobalVar.pokemonAmigo.abilities[0].ability.name;
+                ataque1.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigo.abilities[0].ability.url).names.Where(x => x.language.name == "es").First().name;
 
                 ataque1.Clicked += async delegate
                 {
@@ -289,7 +289,7 @@ namespace appPokemon
 
             if (GlobalVar.pokemonAmigo.abilities.Count() > 1)
             {
-                ataque2.Text = GlobalVar.pokemonAmigo.abilities[1].ability.name;
+                ataque2.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigo.abilities[1].ability.url).names.Where(x => x.language.name == "es").First().name;
 
                 ataque2.Clicked += async delegate
                 {
@@ -308,7 +308,7 @@ namespace appPokemon
 
             if (GlobalVar.pokemonAmigo.abilities.Count() > 2)
             {
-                ataque3.Text = GlobalVar.pokemonAmigo.abilities[2].ability.name;
+                ataque3.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigo.abilities[2].ability.url).names.Where(x => x.language.name == "es").First().name;
 
                 ataque3.Clicked += async delegate
                 {
@@ -327,7 +327,7 @@ namespace appPokemon
 
             if (GlobalVar.pokemonAmigo.abilities.Count() > 3)
             {
-                ataque4.Text = GlobalVar.pokemonAmigo.abilities[3].ability.name;
+                ataque4.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigo.abilities[3].ability.url).names.Where(x => x.language.name == "es").First().name;
 
                 ataque4.Clicked += async delegate
                 {
