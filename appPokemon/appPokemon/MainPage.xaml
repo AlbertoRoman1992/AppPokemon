@@ -4,10 +4,13 @@
              xmlns:local="clr-namespace:appPokemon"
              x:Class="appPokemon.MainPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Entry x:Name="pokemonID" Placeholder="Introduce el Pokemon que desees" HorizontalTextAlignment="Center"/>
-            <Button x:Name="buscarPokemon" Text="Ok" VerticalOptions="Center"/>
-            <ActivityIndicator x:Name="loading" IsVisible="False" IsRunning="False" HorizontalOptions="Center" VerticalOptions="Center" Color="Blue"></ActivityIndicator>
+        <StackLayout BackgroundColor="Azure">
+            <Label Text="Introduce your pokemon name" HorizontalTextAlignment="Center"/>
+            <Entry HorizontalTextAlignment="Center" x:Name="txtPokemon" Placeholder="Name"/>
+            <Image Source="imageUrl"/>
+            <Label x:Name="lbLoading" VerticalOptions="CenterAndExpand" Text="" HorizontalTextAlignment="Center" FontSize="Large"/>
+            <ActivityIndicator HorizontalOptions="Center" IsVisible="False" x:Name="indicator" Color="Blue" IsRunning="True"></ActivityIndicator>
+            <Button VerticalOptions="EndAndExpand" x:Name="btPokemon" Text="Ok"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
