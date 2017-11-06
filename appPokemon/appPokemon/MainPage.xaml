@@ -5,8 +5,12 @@
              x:Class="appPokemon.MainPage">
     <ContentPage.Content>
         <StackLayout BackgroundColor="Azure">
-            <Label Text="Introduce your pokemon name" HorizontalTextAlignment="Center"/>
+            <Label Text="Introduce your pokemon name" x:Name="lbPokemon" HorizontalTextAlignment="Center"/>
             <Entry HorizontalTextAlignment="Center" x:Name="txtPokemon" Placeholder="Name"/>
+            <Label Text="Username" x:Name="lbUsername" HorizontalTextAlignment="Center"/>
+            <Entry HorizontalTextAlignment="Center" x:Name="txtUsername" Placeholder="Username"/>
+            <Label Text="Password" HorizontalTextAlignment="Center"/>
+            <Entry HorizontalTextAlignment="Center" x:Name="txtPass" Placeholder="Password"/>
             <Image Source="imageUrl"/>
             <Label x:Name="lbLoading" VerticalOptions="CenterAndExpand" Text="" HorizontalTextAlignment="Center" FontSize="Large"/>
             <ActivityIndicator HorizontalOptions="Center" IsVisible="False" x:Name="indicator" Color="Blue" IsRunning="True"></ActivityIndicator>
