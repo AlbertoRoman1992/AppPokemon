@@ -1,4 +1,5 @@
 ﻿using appPokemon.Models;
+using appPokemon.Models.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,19 +24,19 @@ namespace appPokemon
 
             void LoadingActive(object sender, EventArgs e)
             {
-                GlobalVar.PokemonSelected = txtPokemon.Text;
-                if (GlobalVar.PokemonSelected != null)
+                GlobalVar.pokemonID = txtPokemon.Text;
+                if (GlobalVar.pokemonID != null)
                 {
-                    if (!GlobalVar.PokemonSelected.StartsWith(" "))
+                    if (!GlobalVar.pokemonID.StartsWith(" "))
                     {
                         lbLoading.Text = "LOADING";
-                        GlobalVar.PokemonSelected = txtPokemon.Text;
-                        if (rep.ObtenerPokemon(GlobalVar.PokemonSelected) != null)
+                        GlobalVar.pokemonID = txtPokemon.Text;
+                        if (rep.ObtenerPokemon(GlobalVar.pokemonID) != null)
                         {
                             indicator.IsRunning = true;
                             indicator.IsVisible = true;
                             Device.BeginInvokeOnMainThread(async () => {
-                                await Navigation.PushAsync(new SecondaryPage());
+                                await Navigation.PushAsync(new BattlePage());
                             });
                         }
                         else
