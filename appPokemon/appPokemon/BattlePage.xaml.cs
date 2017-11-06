@@ -274,13 +274,7 @@ namespace appPokemon
 
                 ataque1.Clicked += async delegate
                 {
-                    await GlobalVar.ImagenAmigo.TranslateTo(50, -50, 50);
-
-                    GlobalVar.golpeEnemigo(GlobalVar.pokemonAmigo.abilities[0].slot);
-                    await GlobalVar.HpBarEnemigo.ProgressTo((GlobalVar.pokemonEnemigoHp / GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat), 250, Easing.Linear);
-                    GlobalVar.HpDatosEnemigo.Text = GlobalVar.pokemonEnemigoHp.ToString() + "/" + GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
-
-                    await GlobalVar.ImagenAmigo.TranslateTo(0, 0, 120);
+                    await AtaqueAsync(GlobalVar.pokemonAmigo.abilities[0].slot);
                 };
             }
             else
@@ -299,13 +293,7 @@ namespace appPokemon
 
                 ataque2.Clicked += async delegate
                 {
-                    await GlobalVar.ImagenAmigo.TranslateTo(50, -50, 50);
-
-                    GlobalVar.golpeEnemigo(GlobalVar.pokemonAmigo.abilities[1].slot);
-                    await GlobalVar.HpBarEnemigo.ProgressTo((GlobalVar.pokemonEnemigoHp / GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat), 250, Easing.Linear);
-                    GlobalVar.HpDatosEnemigo.Text = GlobalVar.pokemonEnemigoHp.ToString() + "/" + GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
-
-                    await GlobalVar.ImagenAmigo.TranslateTo(0, 0, 120);
+                    await AtaqueAsync(GlobalVar.pokemonAmigo.abilities[1].slot);
                 };
             }
             else
@@ -324,13 +312,7 @@ namespace appPokemon
 
                 ataque3.Clicked += async delegate
                 {
-                    await GlobalVar.ImagenAmigo.TranslateTo(50, -50, 50);
-
-                    GlobalVar.golpeEnemigo(GlobalVar.pokemonAmigo.abilities[2].slot);
-                    await GlobalVar.HpBarEnemigo.ProgressTo((GlobalVar.pokemonEnemigoHp / GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat), 250, Easing.Linear);
-                    GlobalVar.HpDatosEnemigo.Text = GlobalVar.pokemonEnemigoHp.ToString() + "/" + GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
-
-                    await GlobalVar.ImagenAmigo.TranslateTo(0, 0, 120);
+                    await AtaqueAsync(GlobalVar.pokemonAmigo.abilities[2].slot);
                 };
             }
             else
@@ -349,13 +331,7 @@ namespace appPokemon
 
                 ataque4.Clicked += async delegate
                 {
-                    await GlobalVar.ImagenAmigo.TranslateTo(50, -50, 50);
-
-                    GlobalVar.golpeEnemigo(GlobalVar.pokemonAmigo.abilities[3].slot);
-                    await GlobalVar.HpBarEnemigo.ProgressTo((GlobalVar.pokemonEnemigoHp / GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat), 250, Easing.Linear);
-                    GlobalVar.HpDatosEnemigo.Text = GlobalVar.pokemonEnemigoHp.ToString() + "/" + GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
-
-                    await GlobalVar.ImagenAmigo.TranslateTo(0, 0, 120);
+                    await AtaqueAsync(GlobalVar.pokemonAmigo.abilities[3].slot);
                 };
             }
             else
@@ -369,6 +345,21 @@ namespace appPokemon
             gridControles.Children.Add(ataque4, 1, 1);
 
             return gridControles;
+        }
+
+        public async Task AtaqueAsync(int golpe)
+        {
+            await GlobalVar.ImagenAmigo.TranslateTo(-50, 50, 75);
+            await GlobalVar.ImagenAmigo.TranslateTo(50, -50, 35);
+
+            await GlobalVar.ImagenEnemigo.TranslateTo(25, -25, 35);
+            await GlobalVar.ImagenEnemigo.TranslateTo(0, 0, 35);
+
+            GlobalVar.golpeEnemigo(golpe);
+            await GlobalVar.HpBarEnemigo.ProgressTo((GlobalVar.pokemonEnemigoHp / GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat), 250, Easing.Linear);
+            GlobalVar.HpDatosEnemigo.Text = GlobalVar.pokemonEnemigoHp.ToString() + "/" + GlobalVar.pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
+
+            await GlobalVar.ImagenAmigo.TranslateTo(0, 0, 90);
         }
     }
 }
