@@ -312,6 +312,31 @@ namespace appPokemon
                 StyleId = "3"
             };
 
+            string text;
+
+            for(int count = 0; count < GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities.Count(); count++)
+            {
+                text = rep.ObtenerAbility(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[count].ability.url).names.Where(x => x.language.name == "es").First().name;
+
+                switch (count)
+                {
+                    case 0:
+                        ataque1.Text = text;
+                        break;
+                    case 1:
+                        ataque2.Text = text;
+                        break;
+                    case 2:
+                        ataque3.Text = text;
+                        break;
+                    case 3:
+                        ataque4.Text = text;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             ataque1.Clicked += Button_click;
             ataque2.Clicked += Button_click;
             ataque3.Clicked += Button_click;
@@ -323,24 +348,6 @@ namespace appPokemon
 
                 if (GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities.Count() > int.Parse(boton.StyleId))
                 {
-                    string text = rep.ObtenerAbility(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[int.Parse(boton.StyleId)].ability.url).names.Where(x => x.language.name == "es").First().name;
-
-                    switch (int.Parse(boton.StyleId))
-                    {
-                        case 0:
-                            ataque1.Text = text;
-                            break;
-                        case 1:
-                            ataque2.Text = text;
-                            break;
-                        case 2:
-                            ataque3.Text = text;
-                            break;
-                        case 3:
-                            ataque4.Text = text;
-                            break;
-                    }
-
                     AtaqueAmigoAsync(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[int.Parse(boton.StyleId)].slot).ConfigureAwait(true);
                 }
             }
