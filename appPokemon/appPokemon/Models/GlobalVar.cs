@@ -11,24 +11,35 @@ namespace appPokemon.Models
     {
         public GlobalVar()
         {
-            pokemonAmigoHp = pokemonAmigo.stats.Where(x => x.stat.name == "hp").First().base_stat;
-            pokemonEnemigoHp = pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat;
-
-            HpBarAmigo = new ProgressBar();
-            HpBarEnemigo = new ProgressBar();
+            pokemonAmigos = new List<Pokemon.RootObject>();
+            pokemonEnemigos = new List<Pokemon.RootObject>();
+            countAmigo = 0;
+            countEnemigo = 0;
+            HpBarAmigo = new List<ProgressBar>();
+            HpBarEnemigo = new List<ProgressBar>();
             HpDatosAmigo = new Label();
             HpDatosEnemigo = new Label();
             XpBarAmigo = new ProgressBar();
             XpBarEnemigo = new ProgressBar();
             ImagenAmigo = new Image();
             ImagenEnemigo = new Image();
+
+            for(int count = 0; count < 6; count++)
+            {
+                HpBarAmigo.Add(new ProgressBar());
+                HpBarEnemigo.Add(new ProgressBar());
+            }
         }
 
         public static string pokemonID { get; set; }
 
-        public static Pokemon.RootObject pokemonAmigo { get; set; }
+        public static List<Pokemon.RootObject> pokemonAmigos { get; set; }
 
-        public static Pokemon.RootObject pokemonEnemigo { get; set; }
+        public static List<Pokemon.RootObject> pokemonEnemigos { get; set; }
+
+        public static int countAmigo { get; set; }
+
+        public static int countEnemigo { get; set; }
 
         public static double pokemonAmigoHp { get; set; }
 
@@ -38,7 +49,7 @@ namespace appPokemon.Models
         {
             if(pokemonAmigoHp > golpe)
             {
-                pokemonAmigoHp += -golpe;
+                pokemonAmigoHp -= golpe;
             }
             else
             {
@@ -52,7 +63,7 @@ namespace appPokemon.Models
         {
             if (pokemonEnemigoHp > golpe)
             {
-                pokemonEnemigoHp += -golpe;
+                pokemonEnemigoHp -= golpe;
             }
             else
             {
@@ -62,9 +73,9 @@ namespace appPokemon.Models
             }
         }
 
-        public static ProgressBar HpBarAmigo { get; set; }
+        public static List<ProgressBar> HpBarAmigo { get; set; }
 
-        public static ProgressBar HpBarEnemigo { get; set; }
+        public static List<ProgressBar> HpBarEnemigo { get; set; }
 
         public static Label HpDatosAmigo { get; set; }
 
