@@ -82,3 +82,4 @@ namespace appPokemon.Models.Ability
         public int id { get; set; }
     }
 }
+
