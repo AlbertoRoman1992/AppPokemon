@@ -140,88 +140,177 @@ namespace appPokemon
             grid.Children.Add(GlobalVar.HpBarAmigo[4], 2, 4);
             grid.Children.Add(GlobalVar.HpBarAmigo[5], 2, 5);
 
-            var buttonPokemon1 = new Button{
-                Text = "Te elijo a ti!"
-            };
-
-            buttonPokemon1.Clicked += (sender, ea) =>
+            var buttonPokemon1 = new Button
             {
-                GlobalVar.countAmigo = 0;
-
-                Device.BeginInvokeOnMainThread(async () => {
-                    await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
-                });
+                FontSize = 10,
+                Text = "Te elijo a ti!",
+                StyleId = "0"
             };
 
             var buttonPokemon2 = new Button
             {
-                Text = "Te elijo a ti!"
-            };
-
-            buttonPokemon2.Clicked += (sender, ea) =>
-            {
-                GlobalVar.countAmigo = 1;
-
-                Device.BeginInvokeOnMainThread(async () => {
-                    await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
-                });
+                FontSize = 10,
+                Text = "Te elijo a ti!",
+                StyleId = "1"
             };
 
             var buttonPokemon3 = new Button
             {
-                Text = "Te elijo a ti!"
-            };
-
-            buttonPokemon3.Clicked += (sender, ea) =>
-            {
-                GlobalVar.countAmigo = 2;
-
-                Device.BeginInvokeOnMainThread(async () => {
-                    await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
-                });
+                FontSize = 10,
+                Text = "Te elijo a ti!",
+                StyleId = "2"
             };
 
             var buttonPokemon4 = new Button
             {
-                Text = "Te elijo a ti!"
-            };
-
-            buttonPokemon4.Clicked += (sender, ea) =>
-            {
-                GlobalVar.countAmigo = 3;
-
-                Device.BeginInvokeOnMainThread(async () => {
-                    await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
-                });
+                FontSize = 10,
+                Text = "Te elijo a ti!",
+                StyleId = "3"
             };
 
             var buttonPokemon5 = new Button
             {
-                Text = "Te elijo a ti!"
-            };
-
-            buttonPokemon5.Clicked += (sender, ea) =>
-            {
-                GlobalVar.countAmigo = 4;
-
-                Device.BeginInvokeOnMainThread(async () => {
-                    await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
-                });
+                FontSize = 10,
+                Text = "Te elijo a ti!",
+                StyleId = "4"
             };
 
             var buttonPokemon6 = new Button
             {
-                Text = "Te elijo a ti!"
+                FontSize = 10,
+                Text = "Te elijo a ti!",
+                StyleId = "5"
             };
 
-            buttonPokemon6.Clicked += (sender, ea) =>
+            buttonPokemon1.Clicked += Button_click;
+            buttonPokemon2.Clicked += Button_click;
+            buttonPokemon3.Clicked += Button_click;
+            buttonPokemon4.Clicked += Button_click;
+            buttonPokemon5.Clicked += Button_click;
+            buttonPokemon6.Clicked += Button_click;
+
+            void Button_click(Object sender, EventArgs e)
             {
-                GlobalVar.countAmigo = 5;
+                Button boton = (Button)sender;
 
-                Device.BeginInvokeOnMainThread(async () => {
-                    await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
-                });
-            };
+                if(GlobalVar.HpBarAmigo[int.Parse(boton.StyleId)].Progress > 0)
+                {
+                    GlobalVar.countAmigo = int.Parse(boton.StyleId);
+
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
+                    });
+                }
+            }
+
+            //if (GlobalVar.HpBarAmigo[0].Progress > 0)
+            //{
+            //    buttonPokemon1.Clicked += (sender, ea) =>
+            //    {
+            //        GlobalVar.countAmigo = 0;
+
+            //        Device.BeginInvokeOnMainThread(async () =>
+            //        {
+            //            await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
+            //        });
+            //    };
+            //}
+
+            //var buttonPokemon2 = new Button
+            //{
+            //    FontSize = 10,
+            //    Text = "Te elijo a ti!"
+            //};
+
+            //if (GlobalVar.HpBarAmigo[1].Progress > 0)
+            //{
+            //    buttonPokemon2.Clicked += (sender, ea) =>
+            //    {
+            //        GlobalVar.countAmigo = 1;
+
+            //        Device.BeginInvokeOnMainThread(async () =>
+            //        {
+            //            await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
+            //        });
+            //    };
+            //}
+
+            //var buttonPokemon3 = new Button
+            //{
+            //    FontSize = 10,
+            //    Text = "Te elijo a ti!"
+            //};
+
+            //if (GlobalVar.HpBarAmigo[2].Progress > 0)
+            //{
+            //    buttonPokemon3.Clicked += (sender, ea) =>
+            //    {
+            //        GlobalVar.countAmigo = 2;
+
+            //        Device.BeginInvokeOnMainThread(async () =>
+            //        {
+            //            await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
+            //        });
+            //    };
+            //}
+
+            //var buttonPokemon4 = new Button
+            //{
+            //    FontSize = 10,
+            //    Text = "Te elijo a ti!"
+            //};
+
+            //if (GlobalVar.HpBarAmigo[3].Progress > 0)
+            //{
+            //    buttonPokemon4.Clicked += (sender, ea) =>
+            //    {
+            //        GlobalVar.countAmigo = 3;
+
+            //        Device.BeginInvokeOnMainThread(async () =>
+            //        {
+            //            await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
+            //        });
+            //    };
+            //}
+
+            //var buttonPokemon5 = new Button
+            //{
+            //    FontSize = 10,
+            //    Text = "Te elijo a ti!"
+            //};
+
+            //if (GlobalVar.HpBarAmigo[4].Progress > 0)
+            //{
+            //    buttonPokemon5.Clicked += (sender, ea) =>
+            //    {
+            //        GlobalVar.countAmigo = 4;
+
+            //        Device.BeginInvokeOnMainThread(async () =>
+            //        {
+            //            await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
+            //        });
+            //    };
+            //}
+
+            //var buttonPokemon6 = new Button
+            //{
+            //    FontSize = 10,
+            //    Text = "Te elijo a ti!"
+            //};
+
+            //if (GlobalVar.HpBarAmigo[5].Progress > 0)
+            //{
+            //    buttonPokemon6.Clicked += (sender, ea) =>
+            //    {
+            //        GlobalVar.countAmigo = 5;
+
+            //        Device.BeginInvokeOnMainThread(async () =>
+            //        {
+            //            await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
+            //        });
+            //    };
+            //}
 
             grid.Children.Add(buttonPokemon1, 3, 0);
             grid.Children.Add(buttonPokemon2, 3, 1);
