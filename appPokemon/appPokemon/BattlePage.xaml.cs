@@ -40,6 +40,8 @@ namespace appPokemon
             GlobalVar.pokemonEnemigos.Add(rep.ObtenerPokemon(new Random(DateTime.Now.Millisecond).Next(1, 803).ToString()));
             GlobalVar.pokemonEnemigoHp = GlobalVar.pokemonEnemigos[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
 
+            InicializarVariables();
+
             Content = GenerarGrid();
         }
 
@@ -47,13 +49,22 @@ namespace appPokemon
         {
             rep = new PokemonRepository();
 
-            //GlobalVar xGlobal = new GlobalVar();
-
             GlobalVar.pokemonAmigoHp = GlobalVar.pokemonAmigos[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
 
             GlobalVar.pokemonEnemigoHp = GlobalVar.pokemonEnemigos[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
 
+            GlobalVar.ImagenAmigo.RotateTo(0, 0);
+
             Content = GenerarGrid();
+        }
+
+        public void InicializarVariables()
+        {
+            for (int count = 0; count < 6; count++)
+            {
+                GlobalVar.HpBarAmigo[count].Progress = 1;
+                GlobalVar.HpBarEnemigo[count].Progress = 1;
+            }
         }
 
         public Grid GenerarGrid()
