@@ -14,46 +14,28 @@ namespace appPokemon
 {
     public partial class MainPage : ContentPage
     {
-        PokemonRepository rep = new PokemonRepository();
-        FirebaseRepository frep = new FirebaseRepository();
+        FirebaseRepository rep = new FirebaseRepository();
 
         public MainPage()
         {
-
             InitializeComponent();
+
+            GlobalVar xGlobal = new GlobalVar();
 
             btPokemon.Clicked += LoadingActive;
 
             void LoadingActive(Object sender, EventArgs e)
             {
-                
-                if(rep.ObtenerLogin(txtUsername.Text, txtPass.Text))
+                if(rep.Login(txtUsername.Text, txtPass.Text))
                 {
+                    lbLoading.Text = "LOADING";
+                    indicator.IsRunning = true;
+                    indicator.IsVisible = true;
 
-                    GlobalVar.pokemonID = txtPokemon.Text;
-                    if (GlobalVar.pokemonID != null)
+                    Device.BeginInvokeOnMainThread(async () =>
                     {
-                        if (!GlobalVar.pokemonID.StartsWith(" "))
-                        {
-                            lbLoading.Text = "LOADING";
-                            GlobalVar.pokemonID = txtPokemon.Text;
-                            if (rep.ObtenerPokemon(GlobalVar.pokemonID) != null)
-                            {
-                                indicator.IsRunning = true;
-                                indicator.IsVisible = true;
-                                Device.BeginInvokeOnMainThread(async () =>
-                                {
-                                    await Navigation.PushAsync(new BattlePage());
-                                });
-                            }
-                            else
-                            {
-                                indicator.IsRunning = false;
-                                indicator.IsVisible = false;
-                                lbLoading.Text = "El pokemon introducido no existe";
-                            }
-                        }
-                    }
+                        await Navigation.PushAsync(new BattlePage());
+                    });
                 }
                 else
                 {
@@ -61,33 +43,6 @@ namespace appPokemon
                     lbUsername.Text = "Usuario o contraseña incorrecta";
                 }
             }
-
-            //void LoadingActive(object sender, EventArgs e)
-            //{
-            //    GlobalVar.pokemonID = txtPokemon.Text;
-            //    if (GlobalVar.pokemonID != null)
-            //    {
-            //        if (!GlobalVar.pokemonID.StartsWith(" "))
-            //        {
-            //            lbLoading.Text = "LOADING";
-            //            GlobalVar.pokemonID = txtPokemon.Text;
-            //            if (rep.ObtenerPokemon(GlobalVar.pokemonID) != null)
-            //            {
-            //                indicator.IsRunning = true;
-            //                indicator.IsVisible = true;
-            //                Device.BeginInvokeOnMainThread(async () => {
-            //                    await Navigation.PushAsync(new BattlePage());
-            //                });
-            //            }
-            //            else
-            //            {
-            //                indicator.IsRunning = false;
-            //                indicator.IsVisible = false;
-            //                lbLoading.Text = "El pokemon introducido no existe";
-            //            }
-            //        }
-            //    }
-            //}
         }
     }
 }

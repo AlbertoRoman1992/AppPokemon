@@ -5,8 +5,6 @@
              x:Class="appPokemon.MainPage">
     <ContentPage.Content>
         <StackLayout BackgroundColor="Azure">
-            <Label Text="Introduce your pokemon name" x:Name="lbPokemon" HorizontalTextAlignment="Center"/>
-            <Entry HorizontalTextAlignment="Center" x:Name="txtPokemon" Placeholder="Name"/>
             <Label Text="Username" x:Name="lbUsername" HorizontalTextAlignment="Center"/>
             <Entry HorizontalTextAlignment="Center" x:Name="txtUsername" Placeholder="Username"/>
             <Label Text="Password" HorizontalTextAlignment="Center"/>

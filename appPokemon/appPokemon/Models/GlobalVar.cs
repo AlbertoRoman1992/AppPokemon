@@ -11,20 +11,44 @@ namespace appPokemon.Models
     {
         public GlobalVar()
         {
-            pokemonAmigoHp = pokemonAmigo.stats.Where(x => x.stat.name == "hp").First().base_stat;
-            pokemonEnemigoHp = pokemonEnemigo.stats.Where(x => x.stat.name == "hp").First().base_stat;
+            countFirebaseRepository = 0;
+            countPokemonRepository = 0;
+            countBattlePage = 0;
 
-            HpBarAmigo = new ProgressBar();
-            HpBarEnemigo = new ProgressBar();
+            countAmigo = 0;
+            countEnemigo = 0;
+
+            HpBarAmigo = new List<ProgressBar>();
+            HpBarEnemigo = new List<ProgressBar>();
             HpDatosAmigo = new Label();
             HpDatosEnemigo = new Label();
+            XpBarAmigo = new ProgressBar();
+            XpBarEnemigo = new ProgressBar();
+            ImagenAmigo = new Image();
+            ImagenEnemigo = new Image();
+
+            for(int count = 0; count < 6; count++)
+            {
+                HpBarAmigo.Add(new ProgressBar());
+                HpBarEnemigo.Add(new ProgressBar());
+            }
         }
+
+        public static int countFirebaseRepository { get; set; }
+
+        public static int countPokemonRepository { get; set; }
+
+        public static int countBattlePage { get; set; }
+
+        public static Entrenador entrenadorAmigo { get; set; }
+
+        public static Entrenador entrenadorEnemigo { get; set; }
 
         public static string pokemonID { get; set; }
 
-        public static Pokemon.RootObject pokemonAmigo { get; set; }
+        public static int countAmigo { get; set; }
 
-        public static Pokemon.RootObject pokemonEnemigo { get; set; }
+        public static int countEnemigo { get; set; }
 
         public static double pokemonAmigoHp { get; set; }
 
@@ -32,34 +56,46 @@ namespace appPokemon.Models
 
         public static void golpeAmigo(int golpe)
         {
-            if(pokemonAmigoHp >= golpe)
+            if(pokemonAmigoHp > golpe)
             {
-                pokemonAmigoHp += -golpe;
+                pokemonAmigoHp -= golpe;
             }
             else
             {
                 pokemonAmigoHp = 0;
+
+                ImagenAmigo.RotateTo(180);
             }
         }
 
         public static void golpeEnemigo(int golpe)
         {
-            if (pokemonEnemigoHp >= golpe)
+            if (pokemonEnemigoHp > golpe)
             {
-                pokemonEnemigoHp += -golpe;
+                pokemonEnemigoHp -= golpe;
             }
             else
             {
                 pokemonEnemigoHp = 0;
+
+                ImagenEnemigo.RotateTo(180);
             }
         }
 
-        public static ProgressBar HpBarAmigo { get; set; }
+        public static List<ProgressBar> HpBarAmigo { get; set; }
 
-        public static ProgressBar HpBarEnemigo { get; set; }
+        public static List<ProgressBar> HpBarEnemigo { get; set; }
 
         public static Label HpDatosAmigo { get; set; }
 
         public static Label HpDatosEnemigo { get; set; }
+
+        public static ProgressBar XpBarAmigo { get; set; }
+
+        public static ProgressBar XpBarEnemigo { get; set; }
+
+        public static Image ImagenAmigo { get; set; }
+
+        public static Image ImagenEnemigo { get; set; }
     }
 }
