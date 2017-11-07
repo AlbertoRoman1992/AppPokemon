@@ -38,37 +38,37 @@ namespace appPokemon
             var imagenPokemon1 = new Image();
             imagenPokemon1.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.pokemonAmigos[0].sprites.front_default)
+                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[0].sprites.front_default)
             };
 
             var imagenPokemon2 = new Image();
             imagenPokemon2.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.pokemonAmigos[1].sprites.front_default)
+                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[1].sprites.front_default)
             };
 
             var imagenPokemon3 = new Image();
             imagenPokemon3.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.pokemonAmigos[2].sprites.front_default)
+                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[2].sprites.front_default)
             };
 
             var imagenPokemon4 = new Image();
             imagenPokemon4.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.pokemonAmigos[3].sprites.front_default)
+                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[3].sprites.front_default)
             };
 
             var imagenPokemon5 = new Image();
             imagenPokemon5.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.pokemonAmigos[4].sprites.front_default)
+                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[4].sprites.front_default)
             };
 
             var imagenPokemon6 = new Image();
             imagenPokemon6.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.pokemonAmigos[5].sprites.front_default)
+                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[5].sprites.front_default)
             };
 
             grid.Children.Add(imagenPokemon1, 0, 0);
@@ -80,7 +80,7 @@ namespace appPokemon
 
             var nombrePokemon1 = new Label
             {
-                Text = GlobalVar.pokemonAmigos[0].name,
+                Text = GlobalVar.entrenadorAmigo.pokemons[0].name,
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = 8
@@ -88,7 +88,7 @@ namespace appPokemon
 
             var nombrePokemon2 = new Label
             {
-                Text = GlobalVar.pokemonAmigos[1].name,
+                Text = GlobalVar.entrenadorAmigo.pokemons[1].name,
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = 8
@@ -96,7 +96,7 @@ namespace appPokemon
 
             var nombrePokemon3 = new Label
             {
-                Text = GlobalVar.pokemonAmigos[2].name,
+                Text = GlobalVar.entrenadorAmigo.pokemons[2].name,
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = 8
@@ -104,7 +104,7 @@ namespace appPokemon
 
             var nombrePokemon4 = new Label
             {
-                Text = GlobalVar.pokemonAmigos[3].name,
+                Text = GlobalVar.entrenadorAmigo.pokemons[3].name,
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = 8
@@ -112,7 +112,7 @@ namespace appPokemon
 
             var nombrePokemon5 = new Label
             {
-                Text = GlobalVar.pokemonAmigos[4].name,
+                Text = GlobalVar.entrenadorAmigo.pokemons[4].name,
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = 8
@@ -120,7 +120,7 @@ namespace appPokemon
 
             var nombrePokemon6 = new Label
             {
-                Text = GlobalVar.pokemonAmigos[5].name,
+                Text = GlobalVar.entrenadorAmigo.pokemons[5].name,
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = 8
@@ -199,7 +199,7 @@ namespace appPokemon
 
                     Device.BeginInvokeOnMainThread(async () =>
                     {
-                        await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
+                        await Navigation.PushAsync(new BattlePage());
                     });
                 }
             }

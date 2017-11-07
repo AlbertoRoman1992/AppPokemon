@@ -18,48 +18,34 @@ namespace appPokemon
 
         public BattlePage()
         {
-            InitializeComponent();
-
             rep = new PokemonRepository();
 
-            GlobalVar xGlobal = new GlobalVar();
+            if (GlobalVar.countBattlePage == 0)
+            {
+                GlobalVar.countBattlePage += 1;
 
-            GlobalVar.pokemonAmigos.Add(rep.ObtenerPokemon(GlobalVar.pokemonID));
-            GlobalVar.pokemonAmigos.Add(rep.ObtenerPokemon(new Random(DateTime.Now.Millisecond).Next(1, 803).ToString()));
-            GlobalVar.pokemonAmigos.Add(rep.ObtenerPokemon(new Random(DateTime.Now.Millisecond).Next(1, 803).ToString()));
-            GlobalVar.pokemonAmigos.Add(rep.ObtenerPokemon(new Random(DateTime.Now.Millisecond).Next(1, 803).ToString()));
-            GlobalVar.pokemonAmigos.Add(rep.ObtenerPokemon(new Random(DateTime.Now.Millisecond).Next(1, 803).ToString()));
-            GlobalVar.pokemonAmigos.Add(rep.ObtenerPokemon(new Random(DateTime.Now.Millisecond).Next(1, 803).ToString()));
-            GlobalVar.pokemonAmigoHp = GlobalVar.pokemonAmigos[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
+                InitializeComponent();
 
-            GlobalVar.pokemonEnemigos.Add(rep.ObtenerPokemon(new Random(DateTime.Now.Millisecond).Next(1, 803).ToString()));
-            GlobalVar.pokemonEnemigos.Add(rep.ObtenerPokemon(new Random(DateTime.Now.Millisecond).Next(1, 803).ToString()));
-            GlobalVar.pokemonEnemigos.Add(rep.ObtenerPokemon(new Random(DateTime.Now.Millisecond).Next(1, 803).ToString()));
-            GlobalVar.pokemonEnemigos.Add(rep.ObtenerPokemon(new Random(DateTime.Now.Millisecond).Next(1, 803).ToString()));
-            GlobalVar.pokemonEnemigos.Add(rep.ObtenerPokemon(new Random(DateTime.Now.Millisecond).Next(1, 803).ToString()));
-            GlobalVar.pokemonEnemigos.Add(rep.ObtenerPokemon(new Random(DateTime.Now.Millisecond).Next(1, 803).ToString()));
-            GlobalVar.pokemonEnemigoHp = GlobalVar.pokemonEnemigos[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
+                InicializarVariables();
+            }
+            else
+            {
+                GlobalVar.ImagenAmigo.RotateTo(0, 0);
 
-            InicializarVariables();
-
-            Content = GenerarGrid();
-        }
-
-        public BattlePage(int count)
-        {
-            rep = new PokemonRepository();
-
-            GlobalVar.pokemonAmigoHp = GlobalVar.pokemonAmigos[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
-
-            GlobalVar.pokemonEnemigoHp = GlobalVar.pokemonEnemigos[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
-
-            GlobalVar.ImagenAmigo.RotateTo(0, 0);
+                GlobalVar.pokemonAmigoHp = GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
+                GlobalVar.pokemonEnemigoHp = GlobalVar.entrenadorEnemigo.pokemons[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
+            }
 
             Content = GenerarGrid();
         }
 
         public void InicializarVariables()
         {
+            rep.CargarPokemons();
+
+            GlobalVar.pokemonAmigoHp = GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
+            GlobalVar.pokemonEnemigoHp = GlobalVar.entrenadorEnemigo.pokemons[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
+
             for (int count = 0; count < 6; count++)
             {
                 GlobalVar.HpBarAmigo[count].Progress = 1;
@@ -95,7 +81,7 @@ namespace appPokemon
 
                 GlobalVar.ImagenAmigo.Source = new UriImageSource
                 {
-                    Uri = new Uri(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].sprites.back_default)
+                    Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].sprites.back_default)
                 };
 
                 grid.Children.Add(GlobalVar.ImagenAmigo, 0, 0);
@@ -108,7 +94,7 @@ namespace appPokemon
 
                 GlobalVar.ImagenEnemigo.Source = new UriImageSource
                 {
-                    Uri = new Uri(GlobalVar.pokemonEnemigos[GlobalVar.countEnemigo].sprites.front_default)
+                    Uri = new Uri(GlobalVar.entrenadorEnemigo.pokemons[GlobalVar.countEnemigo].sprites.front_default)
                 };
 
                 grid.Children.Add(GenerarGridDatos(amigo), 0, 0);
@@ -148,15 +134,10 @@ namespace appPokemon
 
         public string CalculaGenero(bool hembra)
         {
-            if (new Random(DateTime.Now.Millisecond).Next(1) == 0 || hembra)
+            if (hembra)
                 return "♀";
 
             return "♂";
-        }
-
-        public string CalculaNivel()
-        {
-            return new Random(DateTime.Now.Millisecond).Next(1, 101).ToString();
         }
 
         public Grid GenerarGridDatos(bool amigo)
@@ -169,7 +150,7 @@ namespace appPokemon
                 gridDatos.RowDefinitions.Add(new RowDefinition { Height = new GridLength(2, GridUnitType.Star) });
                 gridDatos.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
-                GlobalVar.XpBarAmigo.Progress = GlobalVar.pokemonAmigos[GlobalVar.countAmigo].base_experience / GlobalVar.pokemonAmigos[GlobalVar.countAmigo].base_experience;
+                GlobalVar.XpBarAmigo.Progress = GlobalVar.entrenadorAmigo.user.pokemons[GlobalVar.countAmigo].experience / GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].base_experience;
 
                 gridDatos.Children.Add(GenerarGridValores(amigo), 0, 1);
                 gridDatos.Children.Add(GlobalVar.XpBarAmigo, 0, 2);
@@ -180,7 +161,7 @@ namespace appPokemon
                 gridDatos.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
                 gridDatos.RowDefinitions.Add(new RowDefinition { Height = new GridLength(3, GridUnitType.Star) });
 
-                GlobalVar.XpBarEnemigo.Progress = GlobalVar.pokemonEnemigos[GlobalVar.countEnemigo].base_experience / GlobalVar.pokemonEnemigos[GlobalVar.countEnemigo].base_experience;
+                GlobalVar.XpBarEnemigo.Progress = GlobalVar.entrenadorEnemigo.user.pokemons[GlobalVar.countEnemigo].experience / GlobalVar.entrenadorEnemigo.pokemons[GlobalVar.countEnemigo].base_experience;
 
                 gridDatos.Children.Add(GenerarGridValores(amigo), 0, 0);
                 gridDatos.Children.Add(GlobalVar.XpBarEnemigo, 0, 1);
@@ -221,15 +202,15 @@ namespace appPokemon
 
             if (amigo == true)
             {
-                Nombre.Text = GlobalVar.pokemonAmigos[GlobalVar.countAmigo].name;
-                Hp.Text = rep.ObtenerStat(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().stat.url).names.Where(x => x.language.name == "es").First().name;
-                Nivel.Text = CalculaGenero(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].sprites.front_female != null) + " Nv " + CalculaNivel();
+                Nombre.Text = GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].name;
+                Hp.Text = rep.ObtenerStat(GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().stat.url).names.Where(x => x.language.name == "es").First().name;
+                Nivel.Text = CalculaGenero(GlobalVar.entrenadorAmigo.user.pokemons[GlobalVar.countAmigo].sex) + " Nv " + GlobalVar.entrenadorAmigo.user.pokemons[GlobalVar.countAmigo].level;
             }
             else
             {
-                Nombre.Text = GlobalVar.pokemonEnemigos[GlobalVar.countEnemigo].name;
-                Hp.Text = rep.ObtenerStat(GlobalVar.pokemonEnemigos[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().stat.url).names.Where(x => x.language.name == "es").First().name;
-                Nivel.Text = CalculaGenero(GlobalVar.pokemonEnemigos[GlobalVar.countEnemigo].sprites.front_female != null) + " Nv " + CalculaNivel();
+                Nombre.Text = GlobalVar.entrenadorEnemigo.pokemons[GlobalVar.countEnemigo].name;
+                Hp.Text = rep.ObtenerStat(GlobalVar.entrenadorEnemigo.pokemons[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().stat.url).names.Where(x => x.language.name == "es").First().name;
+                Nivel.Text = CalculaGenero(GlobalVar.entrenadorEnemigo.user.pokemons[GlobalVar.countEnemigo].sex) + " Nv " + GlobalVar.entrenadorEnemigo.user.pokemons[GlobalVar.countEnemigo].level;
             }
 
             gridValores.Children.Add(Nombre, 0, 0);
@@ -249,9 +230,9 @@ namespace appPokemon
 
             if (amigo == true)
             {
-                GlobalVar.HpBarAmigo[GlobalVar.countAmigo].Progress = GlobalVar.pokemonAmigoHp / GlobalVar.pokemonAmigos[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
+                GlobalVar.HpBarAmigo[GlobalVar.countAmigo].Progress = GlobalVar.pokemonAmigoHp / GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
 
-                GlobalVar.HpDatosAmigo.Text = GlobalVar.pokemonAmigoHp.ToString() + "/" + GlobalVar.pokemonAmigos[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
+                GlobalVar.HpDatosAmigo.Text = GlobalVar.pokemonAmigoHp.ToString() + "/" + GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
                 GlobalVar.HpDatosAmigo.VerticalTextAlignment = TextAlignment.Start;
                 GlobalVar.HpDatosAmigo.HorizontalTextAlignment = TextAlignment.Center;
                 GlobalVar.HpDatosAmigo.FontSize = 8;
@@ -261,9 +242,9 @@ namespace appPokemon
             }
             else
             {
-                GlobalVar.HpBarEnemigo[GlobalVar.countEnemigo].Progress = GlobalVar.pokemonEnemigoHp / GlobalVar.pokemonEnemigos[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
+                GlobalVar.HpBarEnemigo[GlobalVar.countEnemigo].Progress = GlobalVar.pokemonEnemigoHp / GlobalVar.entrenadorEnemigo.pokemons[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
 
-                GlobalVar.HpDatosEnemigo.Text = GlobalVar.pokemonEnemigoHp.ToString() + "/" + GlobalVar.pokemonEnemigos[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
+                GlobalVar.HpDatosEnemigo.Text = GlobalVar.pokemonEnemigoHp.ToString() + "/" + GlobalVar.entrenadorEnemigo.pokemons[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
                 GlobalVar.HpDatosEnemigo.VerticalTextAlignment = TextAlignment.Start;
                 GlobalVar.HpDatosEnemigo.HorizontalTextAlignment = TextAlignment.Center;
                 GlobalVar.HpDatosEnemigo.FontSize = 8;
@@ -314,9 +295,9 @@ namespace appPokemon
 
             string text;
 
-            for(int count = 0; count < GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities.Count(); count++)
+            for(int count = 0; count < GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].abilities.Count(); count++)
             {
-                text = rep.ObtenerAbility(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[count].ability.url).names.Where(x => x.language.name == "es").First().name;
+                text = rep.ObtenerAbility(GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].abilities[count].ability.url).names.Where(x => x.language.name == "es").First().name;
 
                 switch (count)
                 {
@@ -346,9 +327,9 @@ namespace appPokemon
             {
                 Button boton = (Button)sender;
 
-                if (GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities.Count() > int.Parse(boton.StyleId))
+                if (GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].abilities.Count() > int.Parse(boton.StyleId))
                 {
-                    AtaqueAmigoAsync(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[int.Parse(boton.StyleId)].slot).ConfigureAwait(true);
+                    AtaqueAmigoAsync(GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].abilities[int.Parse(boton.StyleId)].slot).ConfigureAwait(true);
                 }
             }
 
@@ -369,8 +350,8 @@ namespace appPokemon
             await GlobalVar.ImagenEnemigo.TranslateTo(0, 0, 35);
 
             GlobalVar.golpeEnemigo(golpe);
-            await GlobalVar.HpBarEnemigo[GlobalVar.countEnemigo].ProgressTo((GlobalVar.pokemonEnemigoHp / GlobalVar.pokemonEnemigos[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat), 250, Easing.Linear);
-            GlobalVar.HpDatosEnemigo.Text = GlobalVar.pokemonEnemigoHp.ToString() + "/" + GlobalVar.pokemonEnemigos[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
+            await GlobalVar.HpBarEnemigo[GlobalVar.countEnemigo].ProgressTo((GlobalVar.pokemonEnemigoHp / GlobalVar.entrenadorEnemigo.pokemons[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat), 250, Easing.Linear);
+            GlobalVar.HpDatosEnemigo.Text = GlobalVar.pokemonEnemigoHp.ToString() + "/" + GlobalVar.entrenadorEnemigo.pokemons[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
 
             await GlobalVar.ImagenAmigo.TranslateTo(0, 0, 90);
 
@@ -385,9 +366,9 @@ namespace appPokemon
             await GlobalVar.ImagenAmigo.TranslateTo(-25, 25, 35);
             await GlobalVar.ImagenAmigo.TranslateTo(0, 0, 35);
 
-            GlobalVar.golpeAmigo(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[new Random(DateTime.Now.Millisecond).Next(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities.Count())].slot);
-            await GlobalVar.HpBarAmigo[GlobalVar.countAmigo].ProgressTo((GlobalVar.pokemonAmigoHp / GlobalVar.pokemonAmigos[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().base_stat), 250, Easing.Linear);
-            GlobalVar.HpDatosAmigo.Text = GlobalVar.pokemonAmigoHp.ToString() + "/" + GlobalVar.pokemonAmigos[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
+            GlobalVar.golpeAmigo(GlobalVar.entrenadorEnemigo.pokemons[GlobalVar.countEnemigo].abilities[new Random(DateTime.Now.Millisecond).Next(GlobalVar.entrenadorEnemigo.pokemons[GlobalVar.countEnemigo].abilities.Count())].slot);
+            await GlobalVar.HpBarAmigo[GlobalVar.countAmigo].ProgressTo((GlobalVar.pokemonAmigoHp / GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().base_stat), 250, Easing.Linear);
+            GlobalVar.HpDatosAmigo.Text = GlobalVar.pokemonAmigoHp.ToString() + "/" + GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().base_stat.ToString();
 
             await GlobalVar.ImagenEnemigo.TranslateTo(0, 0, 90);
 
