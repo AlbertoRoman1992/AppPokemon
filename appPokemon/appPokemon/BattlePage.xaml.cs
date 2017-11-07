@@ -40,6 +40,8 @@ namespace appPokemon
             GlobalVar.pokemonEnemigos.Add(rep.ObtenerPokemon(new Random(DateTime.Now.Millisecond).Next(1, 803).ToString()));
             GlobalVar.pokemonEnemigoHp = GlobalVar.pokemonEnemigos[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
 
+            InicializarVariables();
+
             Content = GenerarGrid();
         }
 
@@ -47,13 +49,22 @@ namespace appPokemon
         {
             rep = new PokemonRepository();
 
-            //GlobalVar xGlobal = new GlobalVar();
-
             GlobalVar.pokemonAmigoHp = GlobalVar.pokemonAmigos[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
 
             GlobalVar.pokemonEnemigoHp = GlobalVar.pokemonEnemigos[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
 
+            GlobalVar.ImagenAmigo.RotateTo(0, 0);
+
             Content = GenerarGrid();
+        }
+
+        public void InicializarVariables()
+        {
+            for (int count = 0; count < 6; count++)
+            {
+                GlobalVar.HpBarAmigo[count].Progress = 1;
+                GlobalVar.HpBarEnemigo[count].Progress = 1;
+            }
         }
 
         public Grid GenerarGrid()
@@ -186,7 +197,7 @@ namespace appPokemon
             gridValores.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             gridValores.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             gridValores.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            
+
             var Nombre = new Label
             {
                 VerticalTextAlignment = TextAlignment.Start,
@@ -276,66 +287,126 @@ namespace appPokemon
             var ataque1 = new Button
             {
                 FontSize = 10,
-                Text = "Null"
+                Text = "Null",
+                StyleId = "0"
             };
-
-            if (GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities.Count() > 0)
-            {
-                ataque1.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[0].ability.url).names.Where(x => x.language.name == "es").First().name;
-
-                ataque1.Clicked += (sender, ea) =>
-                {
-                    AtaqueAmigoAsync(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[0].slot).ConfigureAwait(true);
-                };
-            }
 
             var ataque2 = new Button
             {
                 FontSize = 10,
-                Text = "Null"
+                Text = "Null",
+                StyleId = "1"
             };
-
-            if (GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities.Count() > 1)
-            {
-                ataque2.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[1].ability.url).names.Where(x => x.language.name == "es").First().name;
-
-                ataque2.Clicked += (sender, ea) =>
-                {
-                    AtaqueAmigoAsync(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[1].slot).ConfigureAwait(true);
-                };
-            }
 
             var ataque3 = new Button
             {
                 FontSize = 10,
-                Text = "Null"
+                Text = "Null",
+                StyleId = "2"
             };
-
-            if (GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities.Count() > 2)
-            {
-                ataque3.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[2].ability.url).names.Where(x => x.language.name == "es").First().name;
-
-                ataque3.Clicked += (sender, ea) =>
-                {
-                    AtaqueAmigoAsync(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[2].slot).ConfigureAwait(true);
-                };
-            }
 
             var ataque4 = new Button
             {
                 FontSize = 10,
-                Text = "Null"
+                Text = "Null",
+                StyleId = "3"
             };
 
-            if (GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities.Count() > 3)
-            {
-                ataque4.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[3].ability.url).names.Where(x => x.language.name == "es").First().name;
+            ataque1.Clicked += Button_click;
+            ataque2.Clicked += Button_click;
+            ataque3.Clicked += Button_click;
+            ataque4.Clicked += Button_click;
 
-                ataque4.Clicked += (sender, ea) =>
+            void Button_click(Object sender, EventArgs e)
+            {
+                Button boton = (Button)sender;
+
+                if (GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities.Count() > int.Parse(boton.StyleId))
                 {
-                    AtaqueAmigoAsync(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[3].slot).ConfigureAwait(true);
-                };
+                    string text = rep.ObtenerAbility(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[int.Parse(boton.StyleId)].ability.url).names.Where(x => x.language.name == "es").First().name;
+
+                    switch (int.Parse(boton.StyleId))
+                    {
+                        case 0:
+                            ataque1.Text = text;
+                            break;
+                        case 1:
+                            ataque2.Text = text;
+                            break;
+                        case 2:
+                            ataque3.Text = text;
+                            break;
+                        case 3:
+                            ataque4.Text = text;
+                            break;
+                    }
+
+                    AtaqueAmigoAsync(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[int.Parse(boton.StyleId)].slot).ConfigureAwait(true);
+                }
             }
+
+            //void Button_click(Button sender)
+            //{
+            //    AtaqueAmigoAsync(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[int.Parse(sender.StyleId)].slot).ConfigureAwait(true);
+            //}
+
+            //if (GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities.Count() > 0)
+            //{
+            //    ataque1.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[0].ability.url).names.Where(x => x.language.name == "es").First().name;
+
+            //    ataque1.Clicked += (sender, ea) =>
+            //    {
+            //        AtaqueAmigoAsync(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[0].slot).ConfigureAwait(true);
+            //    };
+            //}
+
+            //var ataque2 = new Button
+            //{
+            //    FontSize = 10,
+            //    Text = "Null"
+            //};
+
+            //if (GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities.Count() > 1)
+            //{
+            //    ataque2.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[1].ability.url).names.Where(x => x.language.name == "es").First().name;
+
+            //    ataque2.Clicked += (sender, ea) =>
+            //    {
+            //        AtaqueAmigoAsync(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[1].slot).ConfigureAwait(true);
+            //    };
+            //}
+
+            //var ataque3 = new Button
+            //{
+            //    FontSize = 10,
+            //    Text = "Null"
+            //};
+
+            //if (GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities.Count() > 2)
+            //{
+            //    ataque3.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[2].ability.url).names.Where(x => x.language.name == "es").First().name;
+
+            //    ataque3.Clicked += (sender, ea) =>
+            //    {
+            //        AtaqueAmigoAsync(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[2].slot).ConfigureAwait(true);
+            //    };
+            //}
+
+            //var ataque4 = new Button
+            //{
+            //    FontSize = 10,
+            //    Text = "Null"
+            //};
+
+            //if (GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities.Count() > 3)
+            //{
+            //    ataque4.Text = rep.ObtenerAbility(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[3].ability.url).names.Where(x => x.language.name == "es").First().name;
+
+            //    ataque4.Clicked += (sender, ea) =>
+            //    {
+            //        AtaqueAmigoAsync(GlobalVar.pokemonAmigos[GlobalVar.countAmigo].abilities[3].slot).ConfigureAwait(true);
+            //    };
+            //}
 
             gridControles.Children.Add(ataque1, 0, 0);
             gridControles.Children.Add(ataque2, 1, 0);
@@ -376,9 +447,10 @@ namespace appPokemon
 
             await GlobalVar.ImagenEnemigo.TranslateTo(0, 0, 90);
 
-            if(GlobalVar.pokemonAmigoHp == 0)
+            if (GlobalVar.pokemonAmigoHp == 0)
             {
-                Device.BeginInvokeOnMainThread(async () => {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
                     await Navigation.PushAsync(new SelectPage());
                 });
             }
