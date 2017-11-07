@@ -12,12 +12,12 @@ using Xamarin.Forms.Xaml;
 namespace appPokemon
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Login : ContentPage
+    public partial class LoginPage : ContentPage
     {
         FirebaseRepository rep = new FirebaseRepository();
         List<string> colores = new List<string>();
 
-        public Login()
+        public LoginPage()
         {
             InitializeComponent();
 
