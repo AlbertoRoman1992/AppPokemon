@@ -46,35 +46,36 @@ namespace appPokemon.Models.Repository
         {
             for (int count = 0; count < 6; count++)
             {
-                client = GetHttpClient("https://pokeapi.co/api/v2/pokemon/");
-
                 // Agrego los pokemons del entrenador amigo
                 if(GlobalVar.entrenadorAmigo.user.pokemons.Count() >= count)
                 {
-                    HttpResponseMessage response = client.GetAsync(GlobalVar.entrenadorAmigo.user.pokemons[count].name).Result;
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var resultContent = response.Content.ReadAsStringAsync().Result;
-                        GlobalVar.entrenadorAmigo.pokemons.Add(JsonConvert.DeserializeObject<Models.Pokemon.RootObject>(resultContent));
-                    }
+                    GlobalVar.entrenadorAmigo.pokemons.Add(ObtenerPokemon(GlobalVar.entrenadorAmigo.user.pokemons[count].name));
                 }
 
                 // Agrego los pokemons del entrenador enemigo
                 if (GlobalVar.entrenadorEnemigo.user.pokemons.Count() >= count)
                 {
-                    HttpResponseMessage response = client.GetAsync(GlobalVar.entrenadorEnemigo.user.pokemons[count].name).Result;
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var resultContent = response.Content.ReadAsStringAsync().Result;
-                        GlobalVar.entrenadorEnemigo.pokemons.Add(JsonConvert.DeserializeObject<Models.Pokemon.RootObject>(resultContent));
-                    }
+                    GlobalVar.entrenadorEnemigo.pokemons.Add(ObtenerPokemon(GlobalVar.entrenadorEnemigo.user.pokemons[count].name));
                 }
             }
         }
 
-        public Stat.RootObject ObtenerStat(string url)
+        public Models.Pokemon.RootObject ObtenerPokemon(string id)
+        {
+            client = GetHttpClient("https://pokeapi.co/api/v2/pokemon/");
+
+            HttpResponseMessage response = client.GetAsync(id).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                var resultContent = response.Content.ReadAsStringAsync().Result;
+                return JsonConvert.DeserializeObject<Models.Pokemon.RootObject>(resultContent);
+            }
+
+            return null;
+        }
+
+            public Stat.RootObject ObtenerStat(string url)
         {
             client = GetHttpClient(url);
 
