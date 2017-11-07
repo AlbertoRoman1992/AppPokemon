@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace appPokemon
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Lista : ContentPage
+    public partial class ListPage : ContentPage
     {
-        public Lista()
+        public ListPage()
         {
             InitializeComponent();
 

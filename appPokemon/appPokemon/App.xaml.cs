@@ -13,7 +13,7 @@ namespace appPokemon
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new appPokemon.Login());
+            MainPage = new NavigationPage(new appPokemon.LoginPage());
         }
 
         protected override void OnStart()
