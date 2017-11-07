@@ -45,6 +45,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Ability.cs" />
+    <Compile Include="Models\Entrenador.cs" />
     <Compile Include="Models\GlobalVar.cs" />
     <Compile Include="Models\Pokemon.cs" />
     <Compile Include="Models\Repository\FirebaseRepository.cs" />

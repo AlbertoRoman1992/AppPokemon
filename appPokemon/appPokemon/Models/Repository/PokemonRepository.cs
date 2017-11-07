@@ -18,6 +18,14 @@ namespace appPokemon.Models.Repository
         public PokemonRepository()
         {
             client = new HttpClient();
+
+            if (GlobalVar.countPokemonRepository == 0)
+            {
+                GlobalVar.countPokemonRepository += 1;
+
+                GlobalVar.entrenadorAmigo.pokemons = new List<Pokemon.RootObject>();
+                GlobalVar.entrenadorEnemigo.pokemons = new List<Pokemon.RootObject>();
+            }
         }
 
         private HttpClient GetHttpClient(string url)
@@ -27,7 +35,6 @@ namespace appPokemon.Models.Repository
                 BaseAddress = new Uri(url)
             };
 
-
             httpClient.DefaultRequestHeaders.Accept.Clear();
 
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -35,43 +42,36 @@ namespace appPokemon.Models.Repository
             return httpClient;
         }
 
-        public Models.Pokemon.RootObject ObtenerPokemon(string id)
+        public void CargarPokemons()
         {
-            client = GetHttpClient("https://pokeapi.co/api/v2/pokemon/");
-
-            HttpResponseMessage response = client.GetAsync(id).Result;
-
-            if (response.IsSuccessStatusCode)
+            for (int count = 0; count < 6; count++)
             {
-                var resultContent = response.Content.ReadAsStringAsync().Result;
-                Models.Pokemon.RootObject pokemon = JsonConvert.DeserializeObject<Models.Pokemon.RootObject>(resultContent);
-                return pokemon;
-            }
+                client = GetHttpClient("https://pokeapi.co/api/v2/pokemon/");
 
-            return null;
-        }
-
-        public bool ObtenerLogin(string username, string password)
-        {
-            client = GetHttpClient("https://apppokemon-ffdfb.firebaseio.com/");
-
-            HttpResponseMessage response = client.GetAsync(".json").Result;
-
-            if (response.IsSuccessStatusCode)
-            {
-                var resultContent = response.Content.ReadAsStringAsync().Result;
-                Models.User.RootObject user = JsonConvert.DeserializeObject<Models.User.RootObject>(resultContent);
-                foreach (var ser in user.users)
+                // Agrego los pokemons del entrenador amigo
+                if(GlobalVar.entrenadorAmigo.user.pokemons.Count() >= count)
                 {
-                    if(ser.name == username && ser.pass == password)
+                    HttpResponseMessage response = client.GetAsync(GlobalVar.entrenadorAmigo.user.pokemons[count].name).Result;
+
+                    if (response.IsSuccessStatusCode)
                     {
-                        return true;
+                        var resultContent = response.Content.ReadAsStringAsync().Result;
+                        GlobalVar.entrenadorAmigo.pokemons.Add(JsonConvert.DeserializeObject<Models.Pokemon.RootObject>(resultContent));
                     }
                 }
-                return false;
-            }
 
-            return false;
+                // Agrego los pokemons del entrenador enemigo
+                if (GlobalVar.entrenadorEnemigo.user.pokemons.Count() >= count)
+                {
+                    HttpResponseMessage response = client.GetAsync(GlobalVar.entrenadorEnemigo.user.pokemons[count].name).Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var resultContent = response.Content.ReadAsStringAsync().Result;
+                        GlobalVar.entrenadorEnemigo.pokemons.Add(JsonConvert.DeserializeObject<Models.Pokemon.RootObject>(resultContent));
+                    }
+                }
+            }
         }
 
         public Stat.RootObject ObtenerStat(string url)

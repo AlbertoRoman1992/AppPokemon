@@ -11,10 +11,13 @@ namespace appPokemon.Models
     {
         public GlobalVar()
         {
-            pokemonAmigos = new List<Pokemon.RootObject>();
-            pokemonEnemigos = new List<Pokemon.RootObject>();
+            countFirebaseRepository = 0;
+            countPokemonRepository = 0;
+            countBattlePage = 0;
+
             countAmigo = 0;
             countEnemigo = 0;
+
             HpBarAmigo = new List<ProgressBar>();
             HpBarEnemigo = new List<ProgressBar>();
             HpDatosAmigo = new Label();
@@ -31,11 +34,17 @@ namespace appPokemon.Models
             }
         }
 
+        public static int countFirebaseRepository { get; set; }
+
+        public static int countPokemonRepository { get; set; }
+
+        public static int countBattlePage { get; set; }
+
+        public static Entrenador entrenadorAmigo { get; set; }
+
+        public static Entrenador entrenadorEnemigo { get; set; }
+
         public static string pokemonID { get; set; }
-
-        public static List<Pokemon.RootObject> pokemonAmigos { get; set; }
-
-        public static List<Pokemon.RootObject> pokemonEnemigos { get; set; }
 
         public static int countAmigo { get; set; }
 
