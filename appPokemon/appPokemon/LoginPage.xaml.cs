@@ -15,7 +15,7 @@ namespace appPokemon
     public partial class LoginPage : ContentPage
     {
         FirebaseRepository rep = new FirebaseRepository();
-        List<string> colores = new List<string>();
+        //List<string> colores = new List<string>();
 
         public LoginPage()
         {
@@ -23,37 +23,40 @@ namespace appPokemon
 
             GlobalVar xGlobal = new GlobalVar();
 
-            btnLogin.Clicked += LoginCommand;
-            pickerColor.Items.Add("Bulbasaur");
-            pickerColor.Items.Add("mew");
-            pickerColor.Items.Add("Bulb");
-            pickerColor.Items.Add("mewtwo");
-            pickerColor.Items.Add("Bulbasaur");
-            pickerColor.Items.Add("mew");
-            pickerColor.Items.Add("Bulb");
-            pickerColor.Items.Add("mewtwo");
-            pickerColor.Items.Add("Bulbasaur");
-            pickerColor.Items.Add("mew");
-            pickerColor.Items.Add("Bulb");
-            pickerColor.Items.Add("mewtwo");
-            pickerColor.Items.Add("Bulbasaur");
-            pickerColor.Items.Add("mew");
-            pickerColor.Items.Add("Bulb");
-            pickerColor.Items.Add("mewtwo");
-            pickerColor.Items.Add("Bulbasaur");
-            pickerColor.Items.Add("mew");
-            pickerColor.Items.Add("Bulb");
-            pickerColor.Items.Add("mewtwo");
-            pickerColor.Items.Add("Bulbasaur");
-            pickerColor.Items.Add("mew");
-            pickerColor.Items.Add("Bulb");
-            pickerColor.Items.Add("mewtwo");
+            
+            //pickerColor.Items.Add("Bulbasaur");
+            //pickerColor.Items.Add("mew");
+            //pickerColor.Items.Add("Bulb");
+            //pickerColor.Items.Add("mewtwo");
+            //pickerColor.Items.Add("Bulbasaur");
+            //pickerColor.Items.Add("mew");
+            //pickerColor.Items.Add("Bulb");
+            //pickerColor.Items.Add("mewtwo");
+            //pickerColor.Items.Add("Bulbasaur");
+            //pickerColor.Items.Add("mew");
+            //pickerColor.Items.Add("Bulb");
+            //pickerColor.Items.Add("mewtwo");
+            //pickerColor.Items.Add("Bulbasaur");
+            //pickerColor.Items.Add("mew");
+            //pickerColor.Items.Add("Bulb");
+            //pickerColor.Items.Add("mewtwo");
+            //pickerColor.Items.Add("Bulbasaur");
+            //pickerColor.Items.Add("mew");
+            //pickerColor.Items.Add("Bulb");
+            //pickerColor.Items.Add("mewtwo");
+            //pickerColor.Items.Add("Bulbasaur");
+            //pickerColor.Items.Add("mew");
+            //pickerColor.Items.Add("Bulb");
+            //pickerColor.Items.Add("mewtwo");
 
+            btnLogin.Clicked += LoginCommand;
 
             void LoginCommand(Object sender, EventArgs e)
             {
                 if (rep.Login(txtUsername.Text, txtPass.Text))
                 {
+                    lbError.TextColor = Color.Black;
+                    lbError.Text = "LOADING";
                     Device.BeginInvokeOnMainThread(async () =>
                     {
                         await Navigation.PushAsync(new BattlePage());
@@ -67,13 +70,5 @@ namespace appPokemon
             }
         }
 
-        void LoadingActive(Object sender, EventArgs e)
-        {
-
-        }
-        void PickerItemChanged(Object sender, System.EventArgs e)
-        {
-
-        }
     }
 }

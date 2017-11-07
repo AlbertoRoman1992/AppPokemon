@@ -19,8 +19,8 @@
 
         <StackLayout Grid.Row="2" Orientation="Vertical" BackgroundColor="White" Opacity="0.8">
             <StackLayout Orientation="Vertical" Margin="40,20">
-                <Picker x:Name="pickerColor" SelectedIndexChanged="PickerItemChanged"></Picker>
-                <BoxView x:Name="boxColor" VerticalOptions="CenterAndExpand"></BoxView>
+                <!--<Picker x:Name="pickerColor" SelectedIndexChanged="PickerItemChanged"></Picker>
+                <BoxView x:Name="boxColor" VerticalOptions="CenterAndExpand"></BoxView>-->
                 <Entry Text="{Binding User.Email, Mode=TwoWay}" x:Name="txtUsername" TextColor="Gray" Placeholder="UserName" PlaceholderColor="Gray" FontSize="18" HorizontalTextAlignment="Start"/>
                 <Entry Text="{Binding User.Password, Mode=TwoWay}" x:Name="txtPass" TextColor="Gray" Placeholder="Password" PlaceholderColor="Gray" IsPassword="True" FontSize="18" HorizontalTextAlignment="Start"/>
                 <Button Margin="0,10" Text="Login" BackgroundColor="#0072BD" TextColor="White" FontSize="18" x:Name="btnLogin" Command="{Binding LoginCommand}"/>
