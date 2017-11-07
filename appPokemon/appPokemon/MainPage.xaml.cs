@@ -12,6 +12,7 @@ using Xamarin.Forms.Xaml;
 
 namespace appPokemon
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage
     {
         FirebaseRepository rep = new FirebaseRepository();

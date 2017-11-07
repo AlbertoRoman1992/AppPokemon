@@ -11,15 +11,17 @@ using Xamarin.Forms.Xaml;
 
 namespace appPokemon
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class Login : ContentPage
-	{
-        PokemonRepository rep = new PokemonRepository();
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class Login : ContentPage
+    {
+        FirebaseRepository rep = new FirebaseRepository();
         List<string> colores = new List<string>();
-        
-		public Login ()
-		{
-			InitializeComponent ();
+
+        public Login()
+        {
+            InitializeComponent();
+
+            GlobalVar xGlobal = new GlobalVar();
 
             btnLogin.Clicked += LoginCommand;
             pickerColor.Items.Add("Bulbasaur");
@@ -50,48 +52,28 @@ namespace appPokemon
 
             void LoginCommand(Object sender, EventArgs e)
             {
-                if (rep.ObtenerLogin(txtUsername.Text, txtPass.Text))
+                if (rep.Login(txtUsername.Text, txtPass.Text))
                 {
-
-                    GlobalVar.pokemonID = "1";
-                    if (GlobalVar.pokemonID != null)
+                    Device.BeginInvokeOnMainThread(async () =>
                     {
-                        if (!GlobalVar.pokemonID.StartsWith(" "))
-                        {
-                            
-                            
-                            if (rep.ObtenerPokemon(GlobalVar.pokemonID) != null)
-                            {
-                               
-                                Device.BeginInvokeOnMainThread(async () =>
-                                {
-                                    await Navigation.PushAsync(new BattlePage());
-                                });
-                            }
-                            else
-                            {
-                                
-                            }
-                        }
-                    }
+                        await Navigation.PushAsync(new BattlePage());
+                    });
                 }
                 else
                 {
-                    lbError.Text = "Usuario o contraseña incorrecta"; 
+                    lbError.TextColor = Color.Red;
+                    lbError.Text = "Usuario o contraseña incorrecta";
                 }
             }
-                
-            }
+        }
 
-            void LoadingActive(Object sender, EventArgs e)
-            {
+        void LoadingActive(Object sender, EventArgs e)
+        {
 
         }
-            void PickerItemChanged(Object sender, System.EventArgs e)
-            {
-                
-            }
+        void PickerItemChanged(Object sender, System.EventArgs e)
+        {
 
-
-	}
+        }
+    }
 }

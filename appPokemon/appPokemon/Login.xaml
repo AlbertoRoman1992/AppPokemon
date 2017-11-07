@@ -27,6 +27,5 @@
                 <Label x:Name="lbError" TextColor="#0072BD"/>
             </StackLayout>
         </StackLayout>
-
     </Grid>
 </ContentPage>

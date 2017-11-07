@@ -10,6 +10,7 @@ using Xamarin.Forms.Xaml;
 
 namespace appPokemon
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SelectPage : ContentPage
     {
         public SelectPage()
@@ -193,7 +194,7 @@ namespace appPokemon
             {
                 Button boton = (Button)sender;
 
-                if(GlobalVar.HpBarAmigo[int.Parse(boton.StyleId)].Progress > 0)
+                if (GlobalVar.HpBarAmigo[int.Parse(boton.StyleId)].Progress > 0)
                 {
                     GlobalVar.countAmigo = int.Parse(boton.StyleId);
 

@@ -15,6 +15,7 @@ namespace appPokemon
         public Lista()
         {
             InitializeComponent();
+
             Content = GenerarGrid();
         }
 
@@ -37,37 +38,37 @@ namespace appPokemon
             var imagenPokemon1 = new Image();
             imagenPokemon1.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.pokemonAmigos[0].sprites.back_default)
+                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[0].sprites.front_default)
             };
 
             var imagenPokemon2 = new Image();
             imagenPokemon2.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.pokemonAmigos[1].sprites.back_default)
+                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[1].sprites.front_default)
             };
 
             var imagenPokemon3 = new Image();
             imagenPokemon3.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.pokemonAmigos[2].sprites.back_default)
+                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[2].sprites.front_default)
             };
 
             var imagenPokemon4 = new Image();
             imagenPokemon4.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.pokemonAmigos[3].sprites.back_default)
+                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[3].sprites.front_default)
             };
 
             var imagenPokemon5 = new Image();
             imagenPokemon5.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.pokemonAmigos[4].sprites.back_default)
+                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[4].sprites.front_default)
             };
 
             var imagenPokemon6 = new Image();
             imagenPokemon6.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.pokemonAmigos[5].sprites.back_default)
+                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[5].sprites.front_default)
             };
 
             grid.Children.Add(imagenPokemon1, 0, 0);
@@ -79,7 +80,7 @@ namespace appPokemon
 
             var nombrePokemon1 = new Label
             {
-                Text = GlobalVar.pokemonAmigos[0].name,
+                Text = GlobalVar.entrenadorAmigo.pokemons[0].name,
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = 8
@@ -87,7 +88,7 @@ namespace appPokemon
 
             var nombrePokemon2 = new Label
             {
-                Text = GlobalVar.pokemonAmigos[1].name,
+                Text = GlobalVar.entrenadorAmigo.pokemons[1].name,
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = 8
@@ -95,7 +96,7 @@ namespace appPokemon
 
             var nombrePokemon3 = new Label
             {
-                Text = GlobalVar.pokemonAmigos[2].name,
+                Text = GlobalVar.entrenadorAmigo.pokemons[2].name,
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = 8
@@ -103,7 +104,7 @@ namespace appPokemon
 
             var nombrePokemon4 = new Label
             {
-                Text = GlobalVar.pokemonAmigos[3].name,
+                Text = GlobalVar.entrenadorAmigo.pokemons[3].name,
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = 8
@@ -111,7 +112,7 @@ namespace appPokemon
 
             var nombrePokemon5 = new Label
             {
-                Text = GlobalVar.pokemonAmigos[4].name,
+                Text = GlobalVar.entrenadorAmigo.pokemons[4].name,
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = 8
@@ -119,7 +120,7 @@ namespace appPokemon
 
             var nombrePokemon6 = new Label
             {
-                Text = GlobalVar.pokemonAmigos[5].name,
+                Text = GlobalVar.entrenadorAmigo.pokemons[5].name,
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = 8
@@ -141,87 +142,67 @@ namespace appPokemon
 
             var buttonPokemon1 = new Button
             {
-                Text = "Te elijo a ti!"
-            };
-
-            buttonPokemon1.Clicked += (sender, ea) =>
-            {
-                GlobalVar.countAmigo = 0;
-
-                Device.BeginInvokeOnMainThread(async () => {
-                    await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
-                });
+                FontSize = 10,
+                Text = "Te elijo a ti!",
+                StyleId = "0"
             };
 
             var buttonPokemon2 = new Button
             {
-                Text = "Te elijo a ti!"
-            };
-
-            buttonPokemon2.Clicked += (sender, ea) =>
-            {
-                GlobalVar.countAmigo = 1;
-
-                Device.BeginInvokeOnMainThread(async () => {
-                    await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
-                });
+                FontSize = 10,
+                Text = "Te elijo a ti!",
+                StyleId = "1"
             };
 
             var buttonPokemon3 = new Button
             {
-                Text = "Te elijo a ti!"
-            };
-
-            buttonPokemon3.Clicked += (sender, ea) =>
-            {
-                GlobalVar.countAmigo = 2;
-
-                Device.BeginInvokeOnMainThread(async () => {
-                    await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
-                });
+                FontSize = 10,
+                Text = "Te elijo a ti!",
+                StyleId = "2"
             };
 
             var buttonPokemon4 = new Button
             {
-                Text = "Te elijo a ti!"
-            };
-
-            buttonPokemon4.Clicked += (sender, ea) =>
-            {
-                GlobalVar.countAmigo = 3;
-
-                Device.BeginInvokeOnMainThread(async () => {
-                    await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
-                });
+                FontSize = 10,
+                Text = "Te elijo a ti!",
+                StyleId = "3"
             };
 
             var buttonPokemon5 = new Button
             {
-                Text = "Te elijo a ti!"
-            };
-
-            buttonPokemon5.Clicked += (sender, ea) =>
-            {
-                GlobalVar.countAmigo = 4;
-
-                Device.BeginInvokeOnMainThread(async () => {
-                    await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
-                });
+                FontSize = 10,
+                Text = "Te elijo a ti!",
+                StyleId = "4"
             };
 
             var buttonPokemon6 = new Button
             {
-                Text = "Te elijo a ti!"
+                FontSize = 10,
+                Text = "Te elijo a ti!",
+                StyleId = "5"
             };
 
-            buttonPokemon6.Clicked += (sender, ea) =>
+            buttonPokemon1.Clicked += Button_click;
+            buttonPokemon2.Clicked += Button_click;
+            buttonPokemon3.Clicked += Button_click;
+            buttonPokemon4.Clicked += Button_click;
+            buttonPokemon5.Clicked += Button_click;
+            buttonPokemon6.Clicked += Button_click;
+
+            void Button_click(Object sender, EventArgs e)
             {
-                GlobalVar.countAmigo = 5;
+                Button boton = (Button)sender;
 
-                Device.BeginInvokeOnMainThread(async () => {
-                    await Navigation.PushAsync(new BattlePage(GlobalVar.countAmigo));
-                });
-            };
+                if (GlobalVar.HpBarAmigo[int.Parse(boton.StyleId)].Progress > 0)
+                {
+                    GlobalVar.countAmigo = int.Parse(boton.StyleId);
+
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await Navigation.PushAsync(new BattlePage());
+                    });
+                }
+            }
 
             grid.Children.Add(buttonPokemon1, 3, 0);
             grid.Children.Add(buttonPokemon2, 3, 1);
