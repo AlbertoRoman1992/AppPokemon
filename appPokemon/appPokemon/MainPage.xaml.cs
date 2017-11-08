@@ -27,7 +27,7 @@ namespace appPokemon
 
             void LoadingActive(Object sender, EventArgs e)
             {
-                if(rep.Login(txtUsername.Text, txtPass.Text))
+                if(rep.Login(txtUsername.Text, txtPass.Text) != null)
                 {
                     lbLoading.Text = "LOADING";
                     indicator.IsRunning = true;

@@ -45,7 +45,8 @@ namespace appPokemon.Models.Repository
             return httpClient;
         }
 
-        public bool Login(string username, string password)
+        // El método del login devuelve la lista del usuario porque guardo los datos para saber si el usuario es la primera vez que inicia o no
+        public List<User.Pokemon> Login(string username, string password)
         {
             client = GetHttpClient("https://apppokemon-ffdfb.firebaseio.com/");
 
@@ -64,12 +65,12 @@ namespace appPokemon.Models.Repository
                         // Aquí habría que poner al entrenador enemigo
                         GlobalVar.entrenadorEnemigo.user = user.users.First();
 
-                        return true;
+                        return ser.pokemons;
                     }
                 }
             }
 
-            return false;
+            return null;
         }
     }
 }
