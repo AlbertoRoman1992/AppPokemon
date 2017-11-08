@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using appPokemon.Models.Repository;
+using System.Threading;
 
 namespace appPokemon
 {
@@ -41,7 +42,14 @@ namespace appPokemon
 
         public void InicializarVariables()
         {
-            rep.CargarPokemons();
+            Java.Lang.Thread CargarPokemonsThread = new Java.Lang.Thread(rep.CargarPokemons);
+            CargarPokemonsThread.Start();
+
+            if (CargarPokemonsThread.IsAlive)
+            {
+                GlobalVar.entrenadorAmigo.pokemons.Add(rep.ObtenerPokemon(GlobalVar.entrenadorAmigo.user.pokemons[0].name));
+                GlobalVar.entrenadorEnemigo.pokemons.Add(rep.ObtenerPokemon(GlobalVar.entrenadorEnemigo.user.pokemons[0].name));
+            }
 
             GlobalVar.pokemonAmigoHp = GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
             GlobalVar.pokemonEnemigoHp = GlobalVar.entrenadorEnemigo.pokemons[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
@@ -150,7 +158,7 @@ namespace appPokemon
                 gridDatos.RowDefinitions.Add(new RowDefinition { Height = new GridLength(2, GridUnitType.Star) });
                 gridDatos.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
-                GlobalVar.XpBarAmigo.Progress = GlobalVar.entrenadorAmigo.user.pokemons[GlobalVar.countAmigo].experience / GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].base_experience;
+                GlobalVar.XpBarAmigo.Progress = GlobalVar.entrenadorAmigo.user.pokemons[GlobalVar.countAmigo].experience / GlobalLogic.experienciaMaxima(amigo);
 
                 gridDatos.Children.Add(GenerarGridValores(amigo), 0, 1);
                 gridDatos.Children.Add(GlobalVar.XpBarAmigo, 0, 2);
@@ -161,7 +169,7 @@ namespace appPokemon
                 gridDatos.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
                 gridDatos.RowDefinitions.Add(new RowDefinition { Height = new GridLength(3, GridUnitType.Star) });
 
-                GlobalVar.XpBarEnemigo.Progress = GlobalVar.entrenadorEnemigo.user.pokemons[GlobalVar.countEnemigo].experience / GlobalVar.entrenadorEnemigo.pokemons[GlobalVar.countEnemigo].base_experience;
+                GlobalVar.XpBarEnemigo.Progress = GlobalVar.entrenadorEnemigo.user.pokemons[GlobalVar.countEnemigo].experience / GlobalLogic.experienciaMaxima(amigo);
 
                 gridDatos.Children.Add(GenerarGridValores(amigo), 0, 0);
                 gridDatos.Children.Add(GlobalVar.XpBarEnemigo, 0, 1);
@@ -295,7 +303,7 @@ namespace appPokemon
 
             string text;
 
-            for(int count = 0; count < GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].abilities.Count(); count++)
+            for (int count = 0; count < GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].abilities.Count(); count++)
             {
                 text = rep.ObtenerAbility(GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].abilities[count].ability.url).names.Where(x => x.language.name == "es").First().name;
 
@@ -355,7 +363,14 @@ namespace appPokemon
 
             await GlobalVar.ImagenAmigo.TranslateTo(0, 0, 90);
 
-            await AtaqueEnemigoAsync();
+            if (GlobalVar.pokemonEnemigoHp == 0)
+            {
+                GlobalLogic.actualizarExperiencia();
+            }
+            else
+            {
+                await AtaqueEnemigoAsync();
+            }
         }
 
         public async Task AtaqueEnemigoAsync()

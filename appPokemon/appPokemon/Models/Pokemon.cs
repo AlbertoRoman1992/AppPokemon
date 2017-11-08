@@ -130,5 +130,12 @@ namespace appPokemon.Models.Pokemon
         public List<GameIndice> game_indices { get; set; }
         public int base_experience { get; set; }
         public List<Type> types { get; set; }
+
+        //public RootObject()
+        //{
+        //    this.forms = new List<Form>();
+        //    this.abilities = new List<Ability>();
+        //    this.stats = new List<Stat>();
+        //}
     }
 }
