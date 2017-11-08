@@ -12,6 +12,11 @@ namespace appPokemon.Models.User
         public int level { get; set; }
         public string name { get; set; }
         public bool sex { get; set; }
+        public int health { get; set; }
+        public string atk1 { get; set; }
+        public string atk2 { get; set; }
+        public string atk3 { get; set; }
+        public string atk4 { get; set; }
     }
 
     public class User

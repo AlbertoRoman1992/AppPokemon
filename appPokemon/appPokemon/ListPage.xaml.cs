@@ -16,6 +16,8 @@ namespace appPokemon
         {
             InitializeComponent();
 
+            Image imagenNull = new Image();
+
             Content = GenerarGrid();
         }
 
@@ -35,40 +37,42 @@ namespace appPokemon
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 
+
+
             var imagenPokemon1 = new Image();
             imagenPokemon1.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[0].sprites.front_default)
+                Uri = new Uri("https://image.shutterstock.com/z/stock-vector-default-red-rubber-stamp-isolated-on-white-background-grunge-rectangular-seal-with-text-ink-513816427.jpg")
             };
 
             var imagenPokemon2 = new Image();
             imagenPokemon2.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[1].sprites.front_default)
+                Uri = new Uri("https://image.shutterstock.com/z/stock-vector-default-red-rubber-stamp-isolated-on-white-background-grunge-rectangular-seal-with-text-ink-513816427.jpg")
             };
 
             var imagenPokemon3 = new Image();
             imagenPokemon3.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[2].sprites.front_default)
+                Uri = new Uri("https://image.shutterstock.com/z/stock-vector-default-red-rubber-stamp-isolated-on-white-background-grunge-rectangular-seal-with-text-ink-513816427.jpg")
             };
 
             var imagenPokemon4 = new Image();
             imagenPokemon4.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[3].sprites.front_default)
+                Uri = new Uri("https://image.shutterstock.com/z/stock-vector-default-red-rubber-stamp-isolated-on-white-background-grunge-rectangular-seal-with-text-ink-513816427.jpg")
             };
 
             var imagenPokemon5 = new Image();
             imagenPokemon5.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[4].sprites.front_default)
+                Uri = new Uri("https://image.shutterstock.com/z/stock-vector-default-red-rubber-stamp-isolated-on-white-background-grunge-rectangular-seal-with-text-ink-513816427.jpg")
             };
 
             var imagenPokemon6 = new Image();
             imagenPokemon6.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[5].sprites.front_default)
+                Uri = new Uri("https://image.shutterstock.com/z/stock-vector-default-red-rubber-stamp-isolated-on-white-background-grunge-rectangular-seal-with-text-ink-513816427.jpg")
             };
 
             grid.Children.Add(imagenPokemon1, 0, 0);
@@ -80,7 +84,7 @@ namespace appPokemon
 
             var nombrePokemon1 = new Label
             {
-                Text = GlobalVar.entrenadorAmigo.pokemons[0].name,
+                Text = "Vacio",
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = 8
@@ -88,7 +92,7 @@ namespace appPokemon
 
             var nombrePokemon2 = new Label
             {
-                Text = GlobalVar.entrenadorAmigo.pokemons[1].name,
+                Text = "Vacio",
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = 8
@@ -96,7 +100,7 @@ namespace appPokemon
 
             var nombrePokemon3 = new Label
             {
-                Text = GlobalVar.entrenadorAmigo.pokemons[2].name,
+                Text = "Vacio",
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = 8
@@ -104,7 +108,7 @@ namespace appPokemon
 
             var nombrePokemon4 = new Label
             {
-                Text = GlobalVar.entrenadorAmigo.pokemons[3].name,
+                Text = "Vacio",
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = 8
@@ -112,7 +116,7 @@ namespace appPokemon
 
             var nombrePokemon5 = new Label
             {
-                Text = GlobalVar.entrenadorAmigo.pokemons[4].name,
+                Text = "Vacio",
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = 8
@@ -120,7 +124,7 @@ namespace appPokemon
 
             var nombrePokemon6 = new Label
             {
-                Text = GlobalVar.entrenadorAmigo.pokemons[5].name,
+                Text = "Vacio",
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = 8
@@ -143,42 +147,42 @@ namespace appPokemon
             var buttonPokemon1 = new Button
             {
                 FontSize = 10,
-                Text = "Te elijo a ti!",
+                Text = "Seleccionar",
                 StyleId = "0"
             };
 
             var buttonPokemon2 = new Button
             {
                 FontSize = 10,
-                Text = "Te elijo a ti!",
+                Text = "Seleccionar",
                 StyleId = "1"
             };
 
             var buttonPokemon3 = new Button
             {
                 FontSize = 10,
-                Text = "Te elijo a ti!",
+                Text = "Seleccionar",
                 StyleId = "2"
             };
 
             var buttonPokemon4 = new Button
             {
                 FontSize = 10,
-                Text = "Te elijo a ti!",
+                Text = "Seleccionar",
                 StyleId = "3"
             };
 
             var buttonPokemon5 = new Button
             {
                 FontSize = 10,
-                Text = "Te elijo a ti!",
+                Text = "Seleccionar",
                 StyleId = "4"
             };
 
             var buttonPokemon6 = new Button
             {
                 FontSize = 10,
-                Text = "Te elijo a ti!",
+                Text = "Seleccionar",
                 StyleId = "5"
             };
 

@@ -46,6 +46,7 @@ namespace appPokemon.Models.Repository
         {
             for (int count = 1; count < 6; count++)
             {
+                
                 // Agrego los pokemons del entrenador amigo
                 if (GlobalVar.entrenadorAmigo.user.pokemons.Count() >= count)
                 {

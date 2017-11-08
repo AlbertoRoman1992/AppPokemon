@@ -22,7 +22,8 @@ namespace appPokemon
             InitializeComponent();
 
             GlobalVar xGlobal = new GlobalVar();
-            
+            List<appPokemon.Models.User.Pokemon> lista;
+
             //pickerColor.Items.Add("Bulbasaur");
             //pickerColor.Items.Add("mew");
             //pickerColor.Items.Add("Bulb");
@@ -52,14 +53,27 @@ namespace appPokemon
 
             void LoginCommand(Object sender, EventArgs e)
             {
-                if (rep.Login(txtUsername.Text, txtPass.Text))
+                lista = rep.Login(txtUsername.Text, txtPass.Text);
+
+                if (lista != null)
                 {
                     lbError.TextColor = Color.Black;
                     lbError.Text = "LOADING";
-                    Device.BeginInvokeOnMainThread(async () =>
+
+                    if (lista[0].name == "1")
                     {
-                        await Navigation.PushAsync(new BattlePage());
-                    });
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            await Navigation.PushAsync(new ListPage());
+                        });
+                    }
+                    else
+                    {
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            await Navigation.PushAsync(new BattlePage());
+                        });
+                    }
                 }
                 else
                 {
