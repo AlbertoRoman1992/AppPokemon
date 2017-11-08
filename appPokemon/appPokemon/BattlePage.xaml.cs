@@ -16,14 +16,17 @@ namespace appPokemon
     public partial class BattlePage : ContentPage
     {
         PokemonRepository rep;
+        Java.Lang.Thread CargarPokemonsThread;
 
         public BattlePage()
         {
             rep = new PokemonRepository();
 
-            if (GlobalVar.countBattlePage == 0)
+            if (GlobalVar.countBattlePage == false)
             {
-                GlobalVar.countBattlePage += 1;
+                CargarPokemonsThread = new Java.Lang.Thread(rep.CargarPokemons);
+
+                GlobalVar.countBattlePage = true;
 
                 InitializeComponent();
 
@@ -36,13 +39,12 @@ namespace appPokemon
                 GlobalVar.pokemonAmigoHp = GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
                 GlobalVar.pokemonEnemigoHp = GlobalVar.entrenadorEnemigo.pokemons[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
             }
-
+            
             Content = GenerarGrid();
         }
 
         public void InicializarVariables()
         {
-            Java.Lang.Thread CargarPokemonsThread = new Java.Lang.Thread(rep.CargarPokemons);
             CargarPokemonsThread.Start();
 
             if (CargarPokemonsThread.IsAlive)
@@ -89,7 +91,7 @@ namespace appPokemon
 
                 GlobalVar.ImagenAmigo.Source = new UriImageSource
                 {
-                    Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].sprites.back_default)
+                    Uri = new Uri(GlobalLogic.obtenerImagen(GlobalVar.countAmigo, amigo))
                 };
 
                 grid.Children.Add(GlobalVar.ImagenAmigo, 0, 0);
@@ -102,7 +104,7 @@ namespace appPokemon
 
                 GlobalVar.ImagenEnemigo.Source = new UriImageSource
                 {
-                    Uri = new Uri(GlobalVar.entrenadorEnemigo.pokemons[GlobalVar.countEnemigo].sprites.front_default)
+                    Uri = new Uri(GlobalLogic.obtenerImagen(GlobalVar.countEnemigo, amigo))
                 };
 
                 grid.Children.Add(GenerarGridDatos(amigo), 0, 0);
@@ -365,7 +367,14 @@ namespace appPokemon
 
             if (GlobalVar.pokemonEnemigoHp == 0)
             {
+                while (CargarPokemonsThread.IsAlive)
+                {
+                    Java.Lang.Thread.Sleep(1);
+                }
+
                 GlobalLogic.actualizarExperiencia();
+
+                await GlobalVar.XpBarAmigo.ProgressTo(((double)GlobalVar.entrenadorEnemigo.user.pokemons[GlobalVar.countEnemigo].experience / (double)GlobalLogic.experienciaMaxima(true)), 250, Easing.Linear);
             }
             else
             {
@@ -389,6 +398,11 @@ namespace appPokemon
 
             if (GlobalVar.pokemonAmigoHp == 0)
             {
+                while (CargarPokemonsThread.IsAlive)
+                {
+                    Java.Lang.Thread.Sleep(1);
+                }
+
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await Navigation.PushAsync(new SelectPage());

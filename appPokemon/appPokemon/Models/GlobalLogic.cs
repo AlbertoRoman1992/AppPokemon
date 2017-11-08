@@ -9,14 +9,9 @@ namespace appPokemon.Models
 {
     public class GlobalLogic
     {
-        public GlobalLogic()
-        {
-
-        }
-
         public static int experienciaMaxima(bool amigo)
         {
-            if(amigo == true)
+            if (amigo == true)
             {
                 return GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].base_experience * GlobalVar.entrenadorAmigo.user.pokemons[GlobalVar.countAmigo].level;
             }
@@ -30,9 +25,9 @@ namespace appPokemon.Models
         {
             int nuevaExp = GlobalVar.entrenadorAmigo.user.pokemons[GlobalVar.countAmigo].experience + (experienciaMaxima(false) / experienciaMaxima(true));
 
-            while(nuevaExp >= (experienciaMaxima(true) - GlobalVar.entrenadorAmigo.user.pokemons[GlobalVar.countAmigo].experience))
+            while (nuevaExp >= (experienciaMaxima(true) - GlobalVar.entrenadorAmigo.user.pokemons[GlobalVar.countAmigo].experience))
             {
-                if(GlobalVar.entrenadorAmigo.user.pokemons[GlobalVar.countAmigo].level == 100)
+                if (GlobalVar.entrenadorAmigo.user.pokemons[GlobalVar.countAmigo].level == 100)
                 {
                     nuevaExp = experienciaMaxima(true);
                 }
@@ -45,10 +40,48 @@ namespace appPokemon.Models
             }
 
             GlobalVar.entrenadorAmigo.user.pokemons[GlobalVar.countAmigo].experience = nuevaExp;
-            
-            GlobalVar.XpBarAmigo.ProgressTo((GlobalVar.entrenadorEnemigo.user.pokemons[GlobalVar.countEnemigo].experience / GlobalLogic.experienciaMaxima(true)), 250, Easing.Linear);
 
             // Hay que actualizar la experiencia en la BBDD
+        }
+
+        public static string obtenerImagen(int posicion, bool amigo, bool frontAmigo = false)
+        {
+            if (amigo == true)
+            {
+                if (GlobalVar.entrenadorAmigo.user.pokemons[posicion].sex == true && GlobalVar.entrenadorAmigo.pokemons[posicion].sprites.back_female != null)
+                {
+                    if(frontAmigo == true)
+                    {
+                        return GlobalVar.entrenadorAmigo.pokemons[posicion].sprites.front_female.ToString();
+                    }
+                    else
+                    {
+                        return GlobalVar.entrenadorAmigo.pokemons[posicion].sprites.back_female.ToString();
+                    }
+                }
+                else
+                {
+                    if(frontAmigo == true)
+                    {
+                        return GlobalVar.entrenadorAmigo.pokemons[posicion].sprites.front_default;
+                    }
+                    else
+                    {
+                        return GlobalVar.entrenadorAmigo.pokemons[posicion].sprites.back_default;
+                    }
+                }
+            }
+            else
+            {
+                if (GlobalVar.entrenadorEnemigo.user.pokemons[posicion].sex == true && GlobalVar.entrenadorEnemigo.pokemons[posicion].sprites.back_female != null)
+                {
+                    return GlobalVar.entrenadorEnemigo.pokemons[posicion].sprites.front_female.ToString();
+                }
+                else
+                {
+                    return GlobalVar.entrenadorEnemigo.pokemons[posicion].sprites.front_default;
+                }
+            }
         }
     }
 }

@@ -19,9 +19,9 @@ namespace appPokemon.Models.Repository
         {
             client = new HttpClient();
 
-            if (GlobalVar.countPokemonRepository == 0)
+            if (GlobalVar.countPokemonRepository == false)
             {
-                GlobalVar.countPokemonRepository += 1;
+                GlobalVar.countPokemonRepository = true;
 
                 GlobalVar.entrenadorAmigo.pokemons = new List<Pokemon.RootObject>();
                 GlobalVar.entrenadorEnemigo.pokemons = new List<Pokemon.RootObject>();

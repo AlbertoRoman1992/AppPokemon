@@ -11,9 +11,9 @@ namespace appPokemon.Models
     {
         public GlobalVar()
         {
-            countFirebaseRepository = 0;
-            countPokemonRepository = 0;
-            countBattlePage = 0;
+            countFirebaseRepository = false;
+            countPokemonRepository = false;
+            countBattlePage = false;
 
             countAmigo = 0;
             countEnemigo = 0;
@@ -34,11 +34,11 @@ namespace appPokemon.Models
             }
         }
 
-        public static int countFirebaseRepository { get; set; }
+        public static bool countFirebaseRepository { get; set; }
 
-        public static int countPokemonRepository { get; set; }
+        public static bool countPokemonRepository { get; set; }
 
-        public static int countBattlePage { get; set; }
+        public static bool countBattlePage { get; set; }
 
         public static Entrenador entrenadorAmigo { get; set; }
 
