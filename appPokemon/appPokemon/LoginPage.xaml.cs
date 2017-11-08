@@ -22,7 +22,6 @@ namespace appPokemon
             InitializeComponent();
 
             GlobalVar xGlobal = new GlobalVar();
-
             
             //pickerColor.Items.Add("Bulbasaur");
             //pickerColor.Items.Add("mew");
@@ -69,6 +68,5 @@ namespace appPokemon
                 }
             }
         }
-
     }
 }

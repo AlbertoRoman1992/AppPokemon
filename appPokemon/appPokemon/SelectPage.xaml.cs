@@ -39,37 +39,37 @@ namespace appPokemon
             var imagenPokemon1 = new Image();
             imagenPokemon1.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[0].sprites.front_default)
+                Uri = new Uri(GlobalLogic.obtenerImagen(0, true, true))
             };
 
             var imagenPokemon2 = new Image();
             imagenPokemon2.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[1].sprites.front_default)
+                Uri = new Uri(GlobalLogic.obtenerImagen(1, true, true))
             };
 
             var imagenPokemon3 = new Image();
             imagenPokemon3.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[2].sprites.front_default)
+                Uri = new Uri(GlobalLogic.obtenerImagen(2, true, true))
             };
 
             var imagenPokemon4 = new Image();
             imagenPokemon4.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[3].sprites.front_default)
+                Uri = new Uri(GlobalLogic.obtenerImagen(3, true, true))
             };
 
             var imagenPokemon5 = new Image();
             imagenPokemon5.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[4].sprites.front_default)
+                Uri = new Uri(GlobalLogic.obtenerImagen(4, true, true))
             };
 
             var imagenPokemon6 = new Image();
             imagenPokemon6.Source = new UriImageSource
             {
-                Uri = new Uri(GlobalVar.entrenadorAmigo.pokemons[5].sprites.front_default)
+                Uri = new Uri(GlobalLogic.obtenerImagen(5, true, true))
             };
 
             grid.Children.Add(imagenPokemon1, 0, 0);

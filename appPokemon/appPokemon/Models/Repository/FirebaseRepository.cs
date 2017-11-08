@@ -22,9 +22,9 @@ namespace appPokemon.Models.Repository
         {
             client = new HttpClient();
 
-            if (GlobalVar.countFirebaseRepository == 0)
+            if (GlobalVar.countFirebaseRepository == false)
             {
-                GlobalVar.countFirebaseRepository += 1;
+                GlobalVar.countFirebaseRepository = true;
 
                 GlobalVar.entrenadorAmigo = new Entrenador();
                 GlobalVar.entrenadorEnemigo = new Entrenador();

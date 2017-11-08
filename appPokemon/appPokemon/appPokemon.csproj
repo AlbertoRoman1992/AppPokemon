@@ -52,8 +52,10 @@
     </Compile>
     <Compile Include="Models\Ability.cs" />
     <Compile Include="Models\Entrenador.cs" />
+    <Compile Include="Models\GlobalLogic.cs" />
     <Compile Include="Models\GlobalVar.cs" />
     <Compile Include="Models\Pokemon.cs" />
+    <Compile Include="Models\Prueba.cs" />
     <Compile Include="Models\Repository\FirebaseRepository.cs" />
     <Compile Include="Models\Repository\PokemonRepository.cs" />
     <Compile Include="Models\Stat.cs" />
@@ -85,6 +87,9 @@
     </Reference>
     <Reference Include="ModernHttpClient, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\modernhttpclient.2.4.2\lib\Portable-Net45+WinRT45+WP8+WPA81\ModernHttpClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Android">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v7.1\Mono.Android.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Firebase.Xamarin.0.3.6\lib\Newtonsoft.Json.dll</HintPath>
