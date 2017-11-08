@@ -47,7 +47,7 @@ namespace appPokemon.Models.Repository
             for (int count = 1; count < 6; count++)
             {
                 // Agrego los pokemons del entrenador amigo
-                if(GlobalVar.entrenadorAmigo.user.pokemons.Count() >= count)
+                if (GlobalVar.entrenadorAmigo.user.pokemons.Count() >= count)
                 {
                     GlobalVar.entrenadorAmigo.pokemons.Add(ObtenerPokemon(GlobalVar.entrenadorAmigo.user.pokemons[count].name));
                 }
@@ -75,7 +75,7 @@ namespace appPokemon.Models.Repository
             return null;
         }
 
-            public Stat.RootObject ObtenerStat(string url)
+        public Stat.RootObject ObtenerStat(string url)
         {
             client = GetHttpClient(url);
 

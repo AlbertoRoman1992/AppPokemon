@@ -39,7 +39,7 @@ namespace appPokemon
                 GlobalVar.pokemonAmigoHp = GlobalVar.entrenadorAmigo.pokemons[GlobalVar.countAmigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
                 GlobalVar.pokemonEnemigoHp = GlobalVar.entrenadorEnemigo.pokemons[GlobalVar.countEnemigo].stats.Where(x => x.stat.name == "hp").First().base_stat;
             }
-            
+
             Content = GenerarGrid();
         }
 
