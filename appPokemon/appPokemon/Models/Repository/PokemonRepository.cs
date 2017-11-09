@@ -107,5 +107,21 @@ namespace appPokemon.Models.Repository
 
             return null;
         }
+
+        public List<Models.ListaPokemon.Result> ObtenerLista()
+        {
+            string url = "https://pokeapi.co/api/v2/pokemon/?limit=802";
+            client = GetHttpClient(url);
+
+            HttpResponseMessage response = client.GetAsync(url).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                var resultContent = response.Content.ReadAsStringAsync().Result;
+                Models.ListaPokemon.RootObject respuesta = JsonConvert.DeserializeObject<Models.ListaPokemon.RootObject>(resultContent);
+                return respuesta.results;
+            }
+            return null;
+        }
     }
 }
