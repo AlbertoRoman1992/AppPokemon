@@ -50,10 +50,16 @@ namespace appPokemon
             //pickerColor.Items.Add("mewtwo");
 
             btnLogin.Clicked += LoginCommand;
+            btnCreate.Clicked += CreateCommand;
 
-            void LoginCommand(Object sender, EventArgs e)
+            async void CreateCommand(Object sender, EventArgs e)
             {
-                lista = rep.Login(txtUsername.Text, txtPass.Text);
+               bool s = await rep.CrearUser(txtUsername.Text,txtPass.Text);
+            }
+
+            async void LoginCommand(Object sender, EventArgs e)
+            {
+                lista = await rep.Login(txtUsername.Text, txtPass.Text);
 
                 if (lista != null)
                 {
