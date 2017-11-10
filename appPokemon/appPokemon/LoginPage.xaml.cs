@@ -55,6 +55,16 @@ namespace appPokemon
             async void CreateCommand(Object sender, EventArgs e)
             {
                bool s = await rep.CrearUser(txtUsername.Text,txtPass.Text);
+                if (s)
+                {
+                    lbError.TextColor = Color.Green;
+                    lbError.Text = "User created";
+                }
+                else
+                {
+                    lbError.TextColor = Color.Red;
+                    lbError.Text = "The user already exists";
+                }
             }
 
             async void LoginCommand(Object sender, EventArgs e)

@@ -24,19 +24,6 @@ namespace appPokemon
             Content = GenerarGrid();
         }
 
-        Dictionary<string, Color> nameToColor = new Dictionary<string, Color>
-        {
-            { "Aqua", Color.Aqua }, { "Black", Color.Black },
-            { "Blue", Color.Blue }, { "Fuchsia", Color.Fuchsia },
-            { "Gray", Color.Gray }, { "Green", Color.Green },
-            { "Lime", Color.Lime }, { "Maroon", Color.Maroon },
-            { "Navy", Color.Navy }, { "Olive", Color.Olive },
-            { "Purple", Color.Purple }, { "Red", Color.Red },
-            { "Silver", Color.Silver }, { "Teal", Color.Teal },
-            { "White", Color.White }, { "Yellow", Color.Yellow }
-        };
-
-
         public Grid GenerarGrid()
         {
             var grid = new Grid();
@@ -47,11 +34,12 @@ namespace appPokemon
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            //grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 
             List<Image> imagenPokemon = new List<Image>();
 
@@ -102,6 +90,12 @@ namespace appPokemon
 
             imagenPokemon.Add(imagenPokemon6);
 
+            var buttonPokemonSe = new Button
+            {
+                FontSize = 10,
+                Text = "Seleccionar",
+                StyleId = "0"
+            };
 
             grid.Children.Add(imagenPokemon[0], 0, 0);
             grid.Children.Add(imagenPokemon[1], 0, 1);
@@ -109,6 +103,7 @@ namespace appPokemon
             grid.Children.Add(imagenPokemon[3], 0, 3);
             grid.Children.Add(imagenPokemon[4], 0, 4);
             grid.Children.Add(imagenPokemon[5], 0, 5);
+            grid.Children.Add(buttonPokemonSe, 0, 6);
 
             //var nombrePokemon1 = new Label
             //{
@@ -302,12 +297,12 @@ namespace appPokemon
                 }
             }
 
-            grid.Children.Add(buttonPokemon1, 3, 0);
-            grid.Children.Add(buttonPokemon2, 3, 1);
-            grid.Children.Add(buttonPokemon3, 3, 2);
-            grid.Children.Add(buttonPokemon4, 3, 3);
-            grid.Children.Add(buttonPokemon5, 3, 4);
-            grid.Children.Add(buttonPokemon6, 3, 5);
+            //grid.Children.Add(buttonPokemon1, 3, 0);
+            //grid.Children.Add(buttonPokemon2, 3, 1);
+            //grid.Children.Add(buttonPokemon3, 3, 2);
+            //grid.Children.Add(buttonPokemon4, 3, 3);
+            //grid.Children.Add(buttonPokemon5, 3, 4);
+            //grid.Children.Add(buttonPokemon6, 3, 5);
 
             return grid;
         }
