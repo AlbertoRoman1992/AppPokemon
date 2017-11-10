@@ -18,10 +18,22 @@ namespace appPokemon.Models.Stat
         public Language language { get; set; }
     }
 
+    public class Increase
+    {
+        public string url { get; set; }
+        public string name { get; set; }
+    }
+
+    public class Decrease
+    {
+        public string url { get; set; }
+        public string name { get; set; }
+    }
+
     public class AffectingNatures
     {
-        public List<object> increase { get; set; }
-        public List<object> decrease { get; set; }
+        public List<Increase> increase { get; set; }
+        public List<Decrease> decrease { get; set; }
     }
 
     public class Characteristic
@@ -35,16 +47,28 @@ namespace appPokemon.Models.Stat
         public string name { get; set; }
     }
 
-    public class Increase
+    public class Increase2
     {
         public Move move { get; set; }
         public int change { get; set; }
     }
 
+    public class Move2
+    {
+        public string url { get; set; }
+        public string name { get; set; }
+    }
+
+    public class Decrease2
+    {
+        public Move2 move { get; set; }
+        public int change { get; set; }
+    }
+
     public class AffectingMoves
     {
-        public List<Increase> increase { get; set; }
-        public List<object> decrease { get; set; }
+        public List<Increase2> increase { get; set; }
+        public List<Decrease2> decrease { get; set; }
     }
 
     public class RootObject

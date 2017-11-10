@@ -21,14 +21,6 @@ namespace appPokemon.Models.Repository
         public FirebaseRepository()
         {
             client = new HttpClient();
-
-            if (GlobalVar.countFirebaseRepository == false)
-            {
-                GlobalVar.countFirebaseRepository = true;
-
-                GlobalVar.entrenadorAmigo = new Entrenador();
-                GlobalVar.entrenadorEnemigo = new Entrenador();
-            }
         }
 
         private HttpClient GetHttpClient(string url)
@@ -60,10 +52,10 @@ namespace appPokemon.Models.Repository
                 {
                     if (ser.name == username && ser.pass == password)
                     {
-                        GlobalVar.entrenadorAmigo.user = user.users.First();
+                        GlobalVar.friendCoach.user = user.users.First();
 
                         // Aquí habría que poner al entrenador enemigo
-                        GlobalVar.entrenadorEnemigo.user = user.users.First();
+                        GlobalVar.enemyCoach.user = user.users.First();
 
                         return ser.pokemons;
                     }

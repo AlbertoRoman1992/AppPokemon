@@ -21,33 +21,9 @@ namespace appPokemon
         {
             InitializeComponent();
 
-            GlobalVar xGlobal = new GlobalVar();
-            List<appPokemon.Models.User.Pokemon> lista;
+            GlobalVar.InicializarVariables();
 
-            //pickerColor.Items.Add("Bulbasaur");
-            //pickerColor.Items.Add("mew");
-            //pickerColor.Items.Add("Bulb");
-            //pickerColor.Items.Add("mewtwo");
-            //pickerColor.Items.Add("Bulbasaur");
-            //pickerColor.Items.Add("mew");
-            //pickerColor.Items.Add("Bulb");
-            //pickerColor.Items.Add("mewtwo");
-            //pickerColor.Items.Add("Bulbasaur");
-            //pickerColor.Items.Add("mew");
-            //pickerColor.Items.Add("Bulb");
-            //pickerColor.Items.Add("mewtwo");
-            //pickerColor.Items.Add("Bulbasaur");
-            //pickerColor.Items.Add("mew");
-            //pickerColor.Items.Add("Bulb");
-            //pickerColor.Items.Add("mewtwo");
-            //pickerColor.Items.Add("Bulbasaur");
-            //pickerColor.Items.Add("mew");
-            //pickerColor.Items.Add("Bulb");
-            //pickerColor.Items.Add("mewtwo");
-            //pickerColor.Items.Add("Bulbasaur");
-            //pickerColor.Items.Add("mew");
-            //pickerColor.Items.Add("Bulb");
-            //pickerColor.Items.Add("mewtwo");
+            List<Models.User.Pokemon> lista;
 
             btnLogin.Clicked += LoginCommand;
 

@@ -18,14 +18,6 @@ namespace appPokemon.Models.Repository
         public PokemonRepository()
         {
             client = new HttpClient();
-
-            if (GlobalVar.countPokemonRepository == false)
-            {
-                GlobalVar.countPokemonRepository = true;
-
-                GlobalVar.entrenadorAmigo.pokemons = new List<Pokemon.RootObject>();
-                GlobalVar.entrenadorEnemigo.pokemons = new List<Pokemon.RootObject>();
-            }
         }
 
         private HttpClient GetHttpClient(string url)
@@ -46,17 +38,16 @@ namespace appPokemon.Models.Repository
         {
             for (int count = 1; count < 6; count++)
             {
-                
                 // Agrego los pokemons del entrenador amigo
-                if (GlobalVar.entrenadorAmigo.user.pokemons.Count() >= count)
+                if (GlobalVar.friendCoach.user.pokemons.Count() >= count)
                 {
-                    GlobalVar.entrenadorAmigo.pokemons.Add(ObtenerPokemon(GlobalVar.entrenadorAmigo.user.pokemons[count].name));
+                    GlobalVar.friendCoach.pokemons.Add(ObtenerPokemon(GlobalVar.friendCoach.user.pokemons[count].name));
                 }
 
                 // Agrego los pokemons del entrenador enemigo
-                if (GlobalVar.entrenadorEnemigo.user.pokemons.Count() >= count)
+                if (GlobalVar.enemyCoach.user.pokemons.Count() >= count)
                 {
-                    GlobalVar.entrenadorEnemigo.pokemons.Add(ObtenerPokemon(GlobalVar.entrenadorEnemigo.user.pokemons[count].name));
+                    GlobalVar.enemyCoach.pokemons.Add(ObtenerPokemon(GlobalVar.enemyCoach.user.pokemons[count].name));
                 }
             }
         }
@@ -92,7 +83,7 @@ namespace appPokemon.Models.Repository
             return null;
         }
 
-        public Ability.RootObject ObtenerAbility(string url)
+        public Move.RootObject ObtenerMove(string url)
         {
             client = GetHttpClient(url);
 
@@ -101,7 +92,7 @@ namespace appPokemon.Models.Repository
             if (response.IsSuccessStatusCode)
             {
                 var resultContent = response.Content.ReadAsStringAsync().Result;
-                Ability.RootObject respuesta = JsonConvert.DeserializeObject<Ability.RootObject>(resultContent);
+                Move.RootObject respuesta = JsonConvert.DeserializeObject<Move.RootObject>(resultContent);
                 return respuesta;
             }
 

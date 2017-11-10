@@ -137,12 +137,42 @@ namespace appPokemon
             grid.Children.Add(nombrePokemon5, 1, 4);
             grid.Children.Add(nombrePokemon6, 1, 5);
 
-            grid.Children.Add(GlobalVar.HpBarAmigo[0], 2, 0);
-            grid.Children.Add(GlobalVar.HpBarAmigo[1], 2, 1);
-            grid.Children.Add(GlobalVar.HpBarAmigo[2], 2, 2);
-            grid.Children.Add(GlobalVar.HpBarAmigo[3], 2, 3);
-            grid.Children.Add(GlobalVar.HpBarAmigo[4], 2, 4);
-            grid.Children.Add(GlobalVar.HpBarAmigo[5], 2, 5);
+            var hpBarPokemon1 = new ProgressBar
+            {
+                Progress = ((double)GlobalVar.friendCoach.user.pokemons[0].hp / (double)GlobalLogic.vidaMaxima(true))
+            };
+
+            var hpBarPokemon2 = new ProgressBar
+            {
+                Progress = ((double)GlobalVar.friendCoach.user.pokemons[1].hp / (double)GlobalLogic.vidaMaxima(true))
+            };
+
+            var hpBarPokemon3 = new ProgressBar
+            {
+                Progress = ((double)GlobalVar.friendCoach.user.pokemons[2].hp / (double)GlobalLogic.vidaMaxima(true))
+            };
+
+            var hpBarPokemon4 = new ProgressBar
+            {
+                Progress = ((double)GlobalVar.friendCoach.user.pokemons[3].hp / (double)GlobalLogic.vidaMaxima(true))
+            };
+
+            var hpBarPokemon5 = new ProgressBar
+            {
+                Progress = ((double)GlobalVar.friendCoach.user.pokemons[4].hp / (double)GlobalLogic.vidaMaxima(true))
+            };
+
+            var hpBarPokemon6 = new ProgressBar
+            {
+                Progress = ((double)GlobalVar.friendCoach.user.pokemons[5].hp / (double)GlobalLogic.vidaMaxima(true))
+            };
+
+            grid.Children.Add(hpBarPokemon1, 2, 0);
+            grid.Children.Add(hpBarPokemon2, 2, 1);
+            grid.Children.Add(hpBarPokemon3, 2, 2);
+            grid.Children.Add(hpBarPokemon4, 2, 3);
+            grid.Children.Add(hpBarPokemon5, 2, 4);
+            grid.Children.Add(hpBarPokemon6, 2, 5);
 
             var buttonPokemon1 = new Button
             {
@@ -197,9 +227,9 @@ namespace appPokemon
             {
                 Button boton = (Button)sender;
 
-                if (GlobalVar.HpBarAmigo[int.Parse(boton.StyleId)].Progress > 0)
+                if (GlobalVar.friendCoach.user.pokemons[int.Parse(boton.StyleId)].hp > 0)
                 {
-                    GlobalVar.countAmigo = int.Parse(boton.StyleId);
+                    GlobalVar.pokAmigo = int.Parse(boton.StyleId);
 
                     Device.BeginInvokeOnMainThread(async () =>
                     {
