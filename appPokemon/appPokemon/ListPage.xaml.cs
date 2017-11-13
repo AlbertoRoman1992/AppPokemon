@@ -86,15 +86,6 @@ namespace appPokemon
                 }
             }
 
-            // Create BoxView for displaying picked Color
-            BoxView boxView = new BoxView
-            {
-                WidthRequest = 150,
-                HeightRequest = 150,
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand
-            };
-
             var buttonPokemonSelected = new Button
             {
                 FontSize = 10,
@@ -123,12 +114,10 @@ namespace appPokemon
 
                 if (GlobalVar.friendCoach.pokemons.Count == 0)
                 {
-                    GlobalVar.friendCoach.pokemons.Add(new Models.Pokemon.RootObject());
-                    GlobalVar.friendCoach.pokemons.Add(new Models.Pokemon.RootObject());
-                    GlobalVar.friendCoach.pokemons.Add(new Models.Pokemon.RootObject());
-                    GlobalVar.friendCoach.pokemons.Add(new Models.Pokemon.RootObject());
-                    GlobalVar.friendCoach.pokemons.Add(new Models.Pokemon.RootObject());
-                    GlobalVar.friendCoach.pokemons.Add(new Models.Pokemon.RootObject());
+                    for(int count = 0; count < 6; count++)
+                    {
+                        GlobalVar.friendCoach.pokemons.Add(new Models.Pokemon.RootObject());
+                    }
                 }
 
                 Models.Pokemon.RootObject pokemon = rep.ObtenerPokemon(nombrePokemon.SelectedItem.ToString());
