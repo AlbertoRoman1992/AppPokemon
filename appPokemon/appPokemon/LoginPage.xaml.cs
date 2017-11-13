@@ -26,6 +26,22 @@ namespace appPokemon
             List<appPokemon.Models.User.Pokemon> lista;
 
             btnLogin.Clicked += LoginCommand;
+            btnCreate.Clicked += CreateCommand;
+
+            async void CreateCommand(Object sender, EventArgs e)
+            {
+                bool result = await rep.CrearUser(txtUsername.Text, txtPass.Text);
+                if (result)
+                {
+                    lbError.TextColor = Color.Green;
+                    lbError.Text = "User created";
+                }
+                else
+                {
+                    lbError.TextColor = Color.Red;
+                    lbError.Text = "The user already exists";
+                }
+            }
 
             async void LoginCommand(Object sender, EventArgs e)
             {
