@@ -50,12 +50,12 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Ability.cs" />
     <Compile Include="Models\Entrenador.cs" />
+    <Compile Include="Models\GlobalGrid.cs" />
     <Compile Include="Models\GlobalLogic.cs" />
     <Compile Include="Models\GlobalVar.cs" />
+    <Compile Include="Models\Move.cs" />
     <Compile Include="Models\Pokemon.cs" />
-    <Compile Include="Models\Prueba.cs" />
     <Compile Include="Models\Repository\FirebaseRepository.cs" />
     <Compile Include="Models\Repository\PokemonRepository.cs" />
     <Compile Include="Models\Stat.cs" />
@@ -105,6 +105,9 @@
     </Reference>
     <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Firebase.Xamarin.0.3.6\lib\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Windows.Foundation.UniversalApiContract">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Windows Kits\10\References\10.0.15063.0\Windows.Foundation.UniversalApiContract\4.0.0.0\Windows.Foundation.UniversalApiContract.winmd</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.4.0.280\lib\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.Core.dll</HintPath>

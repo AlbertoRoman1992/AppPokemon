@@ -21,14 +21,6 @@ namespace appPokemon.Models.Repository
         public FirebaseRepository()
         {
             client = new HttpClient();
-
-            if (GlobalVar.countFirebaseRepository == false)
-            {
-                GlobalVar.countFirebaseRepository = true;
-
-                GlobalVar.entrenadorAmigo = new Entrenador();
-                GlobalVar.entrenadorEnemigo = new Entrenador();
-            }
         }
 
         private HttpClient GetHttpClient(string url)
@@ -46,31 +38,51 @@ namespace appPokemon.Models.Repository
         }
 
         // El método del login devuelve la lista del usuario porque guardo los datos para saber si el usuario es la primera vez que inicia o no
-        public List<User.Pokemon> Login(string username, string password)
+        public async Task<List<User.Pokemon>> Login(string username, string password)
         {
-            client = GetHttpClient("https://apppokemon-ffdfb.firebaseio.com/");
 
-            HttpResponseMessage response = client.GetAsync(".json").Result;
+            var firebase = new FirebaseClient("https://apppokemon-ffdfb.firebaseio.com/");
+            var items = await firebase
+              .Child("users")
+              //.WithAuth("<Authentication Token>") // <-- Add Auth token if required. Auth instructions further down in readme.
+              .OrderByKey()
+              .OnceAsync<User.User>();
 
-            if (response.IsSuccessStatusCode)
+            foreach (var item in items)
             {
-                var resultContent = response.Content.ReadAsStringAsync().Result;
-                Models.User.RootObject user = JsonConvert.DeserializeObject<Models.User.RootObject>(resultContent);
-                foreach (var ser in user.users)
+                if (item.Object.name == username && item.Object.pass == password)
                 {
-                    if (ser.name == username && ser.pass == password)
-                    {
-                        GlobalVar.entrenadorAmigo.user = user.users.First();
+                    GlobalVar.friendCoach.user = item.Object;
 
-                        // Aquí habría que poner al entrenador enemigo
-                        GlobalVar.entrenadorEnemigo.user = user.users.First();
-
-                        return ser.pokemons;
-                    }
+                    // Aquí habría que poner al entrenador enemigo
+                    GlobalVar.enemyCoach.user = item.Object;
+                    return item.Object.pokemons;
                 }
             }
 
             return null;
+
+            //client = GetHttpClient("https://apppokemon-ffdfb.firebaseio.com/");
+
+            //HttpResponseMessage response = client.GetAsync(".json").Result;
+
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    var resultContent = response.Content.ReadAsStringAsync().Result;
+            //    Models.User.RootObject user = JsonConvert.DeserializeObject<Models.User.RootObject>(resultContent);
+            //    foreach (var ser in user.users)
+            //    {
+            //        if (ser.name == username && ser.pass == password)
+            //        {
+            //            GlobalVar.entrenadorAmigo.user = user.users.First();
+
+            //            // Aquí habría que poner al entrenador enemigo
+            //            GlobalVar.entrenadorEnemigo.user = user.users.First();
+
+            //            return ser.pokemons;
+            //        }
+            //    }
+            //}
         }
     }
 }

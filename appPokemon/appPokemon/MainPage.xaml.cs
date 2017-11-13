@@ -21,7 +21,7 @@ namespace appPokemon
         {
             InitializeComponent();
 
-            GlobalVar xGlobal = new GlobalVar();
+            GlobalVar.InicializarVariables();
 
             btPokemon.Clicked += LoadingActive;
 

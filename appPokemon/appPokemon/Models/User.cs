@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 
 namespace appPokemon.Models.User
 {
+    public class Move
+    {
+        public string url { get; set; }
+    }
+
     public class Pokemon
     {
-        public int experience { get; set; }
-        public int level { get; set; }
+        public int id { get; set; }
         public string name { get; set; }
+        public List<Move> moves { get; set; }
+        public int level { get; set; }
+        public int experience { get; set; }
         public bool sex { get; set; }
-        public int health { get; set; }
-        public string atk1 { get; set; }
-        public string atk2 { get; set; }
-        public string atk3 { get; set; }
-        public string atk4 { get; set; }
+        public int hp { get; set; }
     }
 
     public class User
