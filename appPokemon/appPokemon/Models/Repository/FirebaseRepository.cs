@@ -105,9 +105,8 @@ namespace appPokemon.Models.Repository
         }
 
         // El método del login devuelve la lista del usuario porque guardo los datos para saber si el usuario es la primera vez que inicia o no
-        public async Task<List<User.Pokemon>> Login(string username, string password)
+        public async Task<bool> Login(string username, string password)
         {
-
             var firebase = new FirebaseClient("https://apppokemon-ffdfb.firebaseio.com/");
             var items = await firebase
               .Child("users")
@@ -123,11 +122,15 @@ namespace appPokemon.Models.Repository
 
                     // Aquí habría que poner al entrenador enemigo
                     GlobalVar.enemyCoach.user = item.Object;
-                    return item.Object.pokemons;
+
+                    if(item.Object.pokemons[0].name != "1")
+                    {
+                        return true;
+                    }
                 }
             }
 
-            return null;
+            return false;
         }
 
         //public async Task<bool> postListPok(string usuario, List<Models.Pokemon.RootObject> listaP)
