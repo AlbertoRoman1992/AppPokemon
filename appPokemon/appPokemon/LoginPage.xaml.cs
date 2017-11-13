@@ -23,13 +23,13 @@ namespace appPokemon
 
             GlobalVar.InicializarVariables();
 
-            List<Models.User.Pokemon> lista;
+            List<appPokemon.Models.User.Pokemon> lista;
 
             btnLogin.Clicked += LoginCommand;
 
-            void LoginCommand(Object sender, EventArgs e)
+            async void LoginCommand(Object sender, EventArgs e)
             {
-                lista = rep.Login(txtUsername.Text, txtPass.Text);
+                lista = await rep.Login(txtUsername.Text, txtPass.Text);
 
                 if (lista != null)
                 {

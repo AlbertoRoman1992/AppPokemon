@@ -33,9 +33,11 @@ namespace appPokemon
                 InicializarPagina();
             }
 
+            CargarDatos();
+
             GlobalGrid.imageFriendImage.RotateTo(0, 0);
             GlobalGrid.imageEnemyImage.RotateTo(0, 0);
-            
+
             GenerarGridPokemon(false);
             GenerarGridData(false);
             GenerarGridValues(false);
@@ -52,17 +54,37 @@ namespace appPokemon
 
         public void InicializarPagina()
         {
-            // Cargo los pokemons iniciales
+            // Carga los pokemons iniciales
             GlobalVar.friendCoach.pokemons.Add(rep.ObtenerPokemon(GlobalVar.friendCoach.user.pokemons[0].name));
             GlobalVar.enemyCoach.pokemons.Add(rep.ObtenerPokemon(GlobalVar.enemyCoach.user.pokemons[0].name));
 
-            // Pongo a cargar el resto de pokemons de forma secundaria
+            // Pone a cargar el resto de pokemons de forma secundaria
             CargarPokemonsThread.Start();
 
             // Genero y gestiono los grids de la página
             GlobalGrid.InicializarGrids();
             GlobalGrid.DimensionarGrids();
             GlobalGrid.EstructurarGrids();
+        }
+
+        public void CargarDatos()
+        {
+            // Carga el Stat del pokemon amigo
+            GlobalVar.friendStat = rep.ObtenerStat(GlobalVar.friendCoach.pokemons[GlobalVar.pokAmigo].stats.Where(x => x.stat.name == "hp").First().stat.url);
+
+            // Carga los ataques del amigo
+            GlobalVar.friendMoves.Clear();
+            for (int count = 0; count < GlobalVar.friendCoach.user.pokemons[GlobalVar.pokAmigo].moves.Count(); count++)
+            {
+                GlobalVar.friendMoves.Add(rep.ObtenerMove(GlobalVar.friendCoach.user.pokemons[GlobalVar.pokAmigo].moves[count].url));
+            }
+
+            // Carga los ataques del enemigo
+            GlobalVar.enemyMoves.Clear();
+            for (int count = 0; count < GlobalVar.enemyCoach.user.pokemons[GlobalVar.pokEnemigo].moves.Count(); count++)
+            {
+                GlobalVar.enemyMoves.Add(rep.ObtenerMove(GlobalVar.enemyCoach.user.pokemons[GlobalVar.pokEnemigo].moves[count].url));
+            }
         }
 
         public void GenerarGridPokemon(bool amigo)
@@ -102,7 +124,7 @@ namespace appPokemon
 
         public void GenerarGridValues(bool amigo)
         {
-            GlobalGrid.labelHpTitle.Text = rep.ObtenerStat(GlobalVar.friendCoach.pokemons[GlobalVar.pokAmigo].stats.Where(x => x.stat.name == "hp").First().stat.url).names.Where(x => x.language.name == "es").First().name;
+            GlobalGrid.labelHpTitle.Text = GlobalVar.friendStat.names.Where(x => x.language.name == "es").First().name;
 
             if (amigo == true)
             {
@@ -136,25 +158,21 @@ namespace appPokemon
 
         public void GenerarGridAttack()
         {
-            string text;
-
             for (int count = 0; count < GlobalVar.friendCoach.user.pokemons[GlobalVar.pokAmigo].moves.Count(); count++)
             {
-                text = rep.ObtenerMove(GlobalVar.friendCoach.user.pokemons[GlobalVar.pokAmigo].moves[count].url).names.Where(x => x.language.name == "es").First().name;
-
                 switch (count)
                 {
                     case 0:
-                        GlobalGrid.buttonAttack1.Text = text;
+                        GlobalGrid.buttonAttack1.Text = GlobalVar.friendMoves[count].names.Where(x => x.language.name == "es").First().name;
                         break;
                     case 1:
-                        GlobalGrid.buttonAttack2.Text = text;
+                        GlobalGrid.buttonAttack2.Text = GlobalVar.friendMoves[count].names.Where(x => x.language.name == "es").First().name;
                         break;
                     case 2:
-                        GlobalGrid.buttonAttack3.Text = text;
+                        GlobalGrid.buttonAttack3.Text = GlobalVar.friendMoves[count].names.Where(x => x.language.name == "es").First().name;
                         break;
                     case 3:
-                        GlobalGrid.buttonAttack4.Text = text;
+                        GlobalGrid.buttonAttack4.Text = GlobalVar.friendMoves[count].names.Where(x => x.language.name == "es").First().name;
                         break;
                     default:
                         break;
@@ -166,26 +184,21 @@ namespace appPokemon
             GlobalGrid.buttonAttack3.Clicked += Button_click;
             GlobalGrid.buttonAttack4.Clicked += Button_click;
 
-            void Button_click(Object sender, EventArgs e)
+            async void Button_click(Object sender, EventArgs e)
             {
                 Button boton = (Button)sender;
 
                 if (GlobalVar.friendCoach.user.pokemons[GlobalVar.pokAmigo].moves.Count() > int.Parse(boton.StyleId))
                 {
-                    GlobalLogic.AtaqueAsync(rep.ObtenerMove(GlobalVar.friendCoach.user.pokemons[GlobalVar.pokEnemigo].moves[int.Parse(boton.StyleId)].url), true).ConfigureAwait(true);
+                    await GlobalLogic.AtaqueAsync(int.Parse(boton.StyleId), true);
 
                     if (GlobalVar.enemyCoach.user.pokemons[GlobalVar.pokEnemigo].hp == 0)
                     {
-                        while (CargarPokemonsThread.IsAlive)
-                        {
-                            Java.Lang.Thread.Sleep(1);
-                        }
-
-                        GlobalLogic.actualizarExperienciaAsync().ConfigureAwait(true);
+                        await GlobalLogic.actualizarExperienciaAsync();
                     }
                     else
                     {
-                        GlobalLogic.AtaqueAsync(rep.ObtenerMove(GlobalVar.enemyCoach.user.pokemons[GlobalVar.pokEnemigo].moves[int.Parse(boton.StyleId)].url), false).ConfigureAwait(true);
+                        await GlobalLogic.AtaqueAsync(new Random(DateTime.Now.Millisecond).Next(0, GlobalVar.enemyCoach.user.pokemons[GlobalVar.pokEnemigo].moves.Count()), false);
 
                         if (GlobalVar.friendCoach.user.pokemons[GlobalVar.pokAmigo].hp == 0)
                         {
@@ -193,6 +206,11 @@ namespace appPokemon
                             {
                                 Java.Lang.Thread.Sleep(1);
                             }
+
+                            Device.BeginInvokeOnMainThread(async () =>
+                            {
+                                await Navigation.PushAsync(new SelectPage());
+                            });
                         }
                     }
                 }

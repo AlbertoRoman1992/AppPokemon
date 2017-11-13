@@ -11,5 +11,10 @@ namespace appPokemon.Models
         public User.User user { get; set; }
 
         public List<Pokemon.RootObject> pokemons { get; set; }
+
+        public Entrenador()
+        {
+            pokemons = new List<Pokemon.RootObject>();
+        }
     }
 }

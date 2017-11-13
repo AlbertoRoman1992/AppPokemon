@@ -17,6 +17,11 @@ namespace appPokemon.Models
         public static Entrenador friendCoach { get; set; }
         public static Entrenador enemyCoach { get; set; }
 
+        public static Stat.RootObject friendStat { get; set; }
+
+        public static List<Move.RootObject> friendMoves { get; set; }
+        public static List<Move.RootObject> enemyMoves { get; set; }
+
         public static void InicializarVariables()
         {
             // Se inicializa a false la comprobación de que sea la primera vez que se entra en dicha página
@@ -26,11 +31,13 @@ namespace appPokemon.Models
             pokAmigo = 0;
             pokEnemigo = 0;
 
-            // Se inicializan los entrenadores y sus equipos de pokemons
+            // Se inicializan los entrenadores
             friendCoach = new Entrenador();
-            friendCoach.pokemons = new List<Pokemon.RootObject>();
             enemyCoach = new Entrenador();
-            enemyCoach.pokemons = new List<Pokemon.RootObject>();
+
+            // Se inicializan las listas de los ataques del amigo y del enemigo
+            friendMoves = new List<Move.RootObject>();
+            enemyMoves = new List<Move.RootObject>();
         }
     }
 }

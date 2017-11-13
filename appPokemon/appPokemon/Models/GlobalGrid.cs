@@ -208,44 +208,44 @@ namespace appPokemon.Models
         public static void EstructurarGrids()
         {
             gridBattlePage.Children.Add(gridEnemyPokemon, 0, 0);
-            gridBattlePage.Children.Add(gridBattle, 1, 0);
-            gridBattlePage.Children.Add(gridFriendPokemon, 2, 0);
-            gridBattlePage.Children.Add(gridMenu, 3, 0);
+            gridBattlePage.Children.Add(gridBattle, 0, 1);
+            gridBattlePage.Children.Add(gridFriendPokemon, 0, 2);
+            gridBattlePage.Children.Add(gridMenu, 0, 3);
             
             gridEnemyPokemon.Children.Add(gridEnemyData, 0, 0);
-            gridEnemyPokemon.Children.Add(imageEnemyImage, 0, 1);
+            gridEnemyPokemon.Children.Add(imageEnemyImage, 1, 0);
 
             gridEnemyData.Children.Add(gridEnemyValues, 0, 0);
-            gridEnemyData.Children.Add(progressBarEnemyXp, 1, 0);
+            gridEnemyData.Children.Add(progressBarEnemyXp, 0, 1);
 
             gridEnemyValues.Children.Add(labelEnemyName, 0, 0);
-            gridEnemyValues.Children.Add(labelEnemyLevel, 0, 1);
-            gridEnemyValues.Children.Add(labelHpTitle, 1, 0);
+            gridEnemyValues.Children.Add(labelEnemyLevel, 1, 0);
+            gridEnemyValues.Children.Add(labelHpTitle, 0, 1);
             gridEnemyValues.Children.Add(gridEnemyHp, 1, 1);
 
             gridEnemyHp.Children.Add(progressBarEnemyHpBar, 0, 0);
-            gridEnemyHp.Children.Add(labelEnemyHpData, 1, 0);
+            gridEnemyHp.Children.Add(labelEnemyHpData, 0, 1);
 
             gridFriendPokemon.Children.Add(imageFriendImage, 0, 0);
-            gridFriendPokemon.Children.Add(gridFriendData, 0, 1);
+            gridFriendPokemon.Children.Add(gridFriendData, 1, 0);
 
-            gridFriendData.Children.Add(gridFriendValues, 1, 0);
-            gridFriendData.Children.Add(progressBarFriendXp, 2, 0);
+            gridFriendData.Children.Add(gridFriendValues, 0, 1);
+            gridFriendData.Children.Add(progressBarFriendXp, 0, 2);
 
             gridFriendValues.Children.Add(labelFriendName, 0, 0);
-            gridFriendValues.Children.Add(labelFriendLevel, 0, 1);
-            gridFriendValues.Children.Add(labelHpTitle, 1, 0);
+            gridFriendValues.Children.Add(labelFriendLevel, 1, 0);
+            gridFriendValues.Children.Add(labelHpTitle, 0, 1);
             gridFriendValues.Children.Add(gridFriendHp, 1, 1);
 
             gridFriendHp.Children.Add(progressBarFriendHpBar, 0, 0);
-            gridFriendHp.Children.Add(labelFriendHpData, 1, 0);
+            gridFriendHp.Children.Add(labelFriendHpData, 0, 1);
 
             gridMenu.Children.Add(labelInfo, 0, 0);
-            gridMenu.Children.Add(gridAttack, 0, 1);
+            gridMenu.Children.Add(gridAttack, 1, 0);
 
             gridAttack.Children.Add(buttonAttack1, 0, 0);
-            gridAttack.Children.Add(buttonAttack2, 0, 1);
-            gridAttack.Children.Add(buttonAttack3, 1, 0);
+            gridAttack.Children.Add(buttonAttack2, 1, 0);
+            gridAttack.Children.Add(buttonAttack3, 0, 1);
             gridAttack.Children.Add(buttonAttack4, 1, 1);
         }
     }

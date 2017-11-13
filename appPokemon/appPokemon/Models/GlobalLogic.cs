@@ -10,7 +10,7 @@ namespace appPokemon.Models
 {
     public static class GlobalLogic
     {
-        public static async Task AtaqueAsync(Models.Move.RootObject move, bool amigo)
+        public static async Task AtaqueAsync(int moveClicked, bool amigo)
         {
             if (amigo == true)
             {
@@ -20,7 +20,7 @@ namespace appPokemon.Models
                 await GlobalGrid.imageEnemyImage.TranslateTo(25, -25, 35);
                 await GlobalGrid.imageEnemyImage.TranslateTo(0, 0, 35);
 
-                golpe(move, amigo);
+                golpe(moveClicked, amigo);
                 await GlobalGrid.progressBarEnemyHpBar.ProgressTo((GlobalVar.enemyCoach.user.pokemons[GlobalVar.pokEnemigo].hp / GlobalLogic.vidaMaxima(false)), 250, Easing.Linear);
                 GlobalGrid.labelEnemyHpData.Text = GlobalVar.enemyCoach.user.pokemons[GlobalVar.pokEnemigo].hp.ToString() + "/" + GlobalLogic.vidaMaxima(false).ToString();
 
@@ -34,7 +34,7 @@ namespace appPokemon.Models
                 await GlobalGrid.imageFriendImage.TranslateTo(-25, 25, 35);
                 await GlobalGrid.imageFriendImage.TranslateTo(0, 0, 35);
 
-                golpe(move, amigo);
+                golpe(moveClicked, amigo);
                 await GlobalGrid.progressBarFriendHpBar.ProgressTo((GlobalVar.friendCoach.user.pokemons[GlobalVar.pokEnemigo].hp / GlobalLogic.vidaMaxima(false)), 250, Easing.Linear);
                 GlobalGrid.labelFriendHpData.Text = GlobalVar.friendCoach.user.pokemons[GlobalVar.pokEnemigo].hp.ToString() + "/" + GlobalLogic.vidaMaxima(false).ToString();
 
@@ -42,12 +42,14 @@ namespace appPokemon.Models
             }
         }
 
-        public static void golpe(Models.Move.RootObject move, bool amigo)
+        public static void golpe(int moveClicked, bool amigo)
         {
-            int golpe = move.power;
+            int golpe = 0;
 
             if (amigo == true)
             {
+                golpe = GlobalVar.friendMoves[moveClicked].power;
+
                 if (GlobalVar.enemyCoach.user.pokemons[GlobalVar.pokEnemigo].hp > golpe)
                 {
                     GlobalVar.enemyCoach.user.pokemons[GlobalVar.pokEnemigo].hp -= golpe;
@@ -61,6 +63,8 @@ namespace appPokemon.Models
             }
             else
             {
+                golpe = GlobalVar.enemyMoves[moveClicked].power;
+
                 if (GlobalVar.friendCoach.user.pokemons[GlobalVar.pokEnemigo].hp > golpe)
                 {
                     GlobalVar.friendCoach.user.pokemons[GlobalVar.pokEnemigo].hp -= golpe;
