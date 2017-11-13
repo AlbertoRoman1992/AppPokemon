@@ -54,6 +54,7 @@
     <Compile Include="Models\GlobalGrid.cs" />
     <Compile Include="Models\GlobalLogic.cs" />
     <Compile Include="Models\GlobalVar.cs" />
+    <Compile Include="Models\ListaPokemon.cs" />
     <Compile Include="Models\Move.cs" />
     <Compile Include="Models\Pokemon.cs" />
     <Compile Include="Models\Repository\FirebaseRepository.cs" />

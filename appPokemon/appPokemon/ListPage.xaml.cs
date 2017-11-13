@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 using appPokemon.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using appPokemon.Models.Repository;
 
 namespace appPokemon
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ListPage : ContentPage
     {
+        PokemonRepository rep;
+
         public ListPage()
         {
             InitializeComponent();
 
-            Image imagenNull = new Image();
+            rep = new PokemonRepository();
 
             Content = GenerarGrid();
         }
@@ -31,219 +34,108 @@ namespace appPokemon
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 
+            List<Image> imagePokemons = new List<Image>();
+            Image imagePokemon;
 
-
-            var imagenPokemon1 = new Image();
-            imagenPokemon1.Source = new UriImageSource
+            for (int count = 0; count < 6; count++)
             {
-                Uri = new Uri("https://image.shutterstock.com/z/stock-vector-default-red-rubber-stamp-isolated-on-white-background-grunge-rectangular-seal-with-text-ink-513816427.jpg")
+                imagePokemon = new Image();
+
+                imagePokemon.Source = new UriImageSource
+                {
+                    Uri = new Uri("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png")
+                };
+
+                imagePokemons.Add(imagePokemon);
+            }
+
+            grid.Children.Add(imagePokemons[0], 0, 0);
+            grid.Children.Add(imagePokemons[1], 0, 1);
+            grid.Children.Add(imagePokemons[2], 0, 2);
+            grid.Children.Add(imagePokemons[3], 0, 3);
+            grid.Children.Add(imagePokemons[4], 0, 4);
+            grid.Children.Add(imagePokemons[5], 0, 5);
+
+            List<Models.ListaPokemon.Result> listaPokemon = rep.ObtenerLista();
+
+            List<Picker> namePokemons = new List<Picker>();
+            Picker namePokemon;
+
+            for (int count = 0; count < 6; count++)
+            {
+                namePokemon = new Picker
+                {
+                    Title = "Pokemon",
+                    VerticalOptions = LayoutOptions.CenterAndExpand,
+                    StyleId = count.ToString()
+                };
+
+                namePokemons.Add(namePokemon);
+            }
+
+            for (int count = 0; count < listaPokemon.Count(); count++)
+            {
+                for (int countPokemons = 0; countPokemons < 6; countPokemons++)
+                {
+                    namePokemons[countPokemons].Items.Add(listaPokemon[count].name);
+                }
+            }
+
+            // Create BoxView for displaying picked Color
+            BoxView boxView = new BoxView
+            {
+                WidthRequest = 150,
+                HeightRequest = 150,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            var imagenPokemon2 = new Image();
-            imagenPokemon2.Source = new UriImageSource
-            {
-                Uri = new Uri("https://image.shutterstock.com/z/stock-vector-default-red-rubber-stamp-isolated-on-white-background-grunge-rectangular-seal-with-text-ink-513816427.jpg")
-            };
-
-            var imagenPokemon3 = new Image();
-            imagenPokemon3.Source = new UriImageSource
-            {
-                Uri = new Uri("https://image.shutterstock.com/z/stock-vector-default-red-rubber-stamp-isolated-on-white-background-grunge-rectangular-seal-with-text-ink-513816427.jpg")
-            };
-
-            var imagenPokemon4 = new Image();
-            imagenPokemon4.Source = new UriImageSource
-            {
-                Uri = new Uri("https://image.shutterstock.com/z/stock-vector-default-red-rubber-stamp-isolated-on-white-background-grunge-rectangular-seal-with-text-ink-513816427.jpg")
-            };
-
-            var imagenPokemon5 = new Image();
-            imagenPokemon5.Source = new UriImageSource
-            {
-                Uri = new Uri("https://image.shutterstock.com/z/stock-vector-default-red-rubber-stamp-isolated-on-white-background-grunge-rectangular-seal-with-text-ink-513816427.jpg")
-            };
-
-            var imagenPokemon6 = new Image();
-            imagenPokemon6.Source = new UriImageSource
-            {
-                Uri = new Uri("https://image.shutterstock.com/z/stock-vector-default-red-rubber-stamp-isolated-on-white-background-grunge-rectangular-seal-with-text-ink-513816427.jpg")
-            };
-
-            grid.Children.Add(imagenPokemon1, 0, 0);
-            grid.Children.Add(imagenPokemon2, 0, 1);
-            grid.Children.Add(imagenPokemon3, 0, 2);
-            grid.Children.Add(imagenPokemon4, 0, 3);
-            grid.Children.Add(imagenPokemon5, 0, 4);
-            grid.Children.Add(imagenPokemon6, 0, 5);
-
-            var nombrePokemon1 = new Label
-            {
-                Text = "Vacio",
-                VerticalTextAlignment = TextAlignment.Center,
-                HorizontalTextAlignment = TextAlignment.Center,
-                FontSize = 8
-            };
-
-            var nombrePokemon2 = new Label
-            {
-                Text = "Vacio",
-                VerticalTextAlignment = TextAlignment.Center,
-                HorizontalTextAlignment = TextAlignment.Center,
-                FontSize = 8
-            };
-
-            var nombrePokemon3 = new Label
-            {
-                Text = "Vacio",
-                VerticalTextAlignment = TextAlignment.Center,
-                HorizontalTextAlignment = TextAlignment.Center,
-                FontSize = 8
-            };
-
-            var nombrePokemon4 = new Label
-            {
-                Text = "Vacio",
-                VerticalTextAlignment = TextAlignment.Center,
-                HorizontalTextAlignment = TextAlignment.Center,
-                FontSize = 8
-            };
-
-            var nombrePokemon5 = new Label
-            {
-                Text = "Vacio",
-                VerticalTextAlignment = TextAlignment.Center,
-                HorizontalTextAlignment = TextAlignment.Center,
-                FontSize = 8
-            };
-
-            var nombrePokemon6 = new Label
-            {
-                Text = "Vacio",
-                VerticalTextAlignment = TextAlignment.Center,
-                HorizontalTextAlignment = TextAlignment.Center,
-                FontSize = 8
-            };
-
-            grid.Children.Add(nombrePokemon1, 1, 0);
-            grid.Children.Add(nombrePokemon2, 1, 1);
-            grid.Children.Add(nombrePokemon3, 1, 2);
-            grid.Children.Add(nombrePokemon4, 1, 3);
-            grid.Children.Add(nombrePokemon5, 1, 4);
-            grid.Children.Add(nombrePokemon6, 1, 5);
-
-            var hpBarPokemon1 = new ProgressBar
-            {
-                Progress = ((double)GlobalVar.friendCoach.user.pokemons[0].hp / (double)GlobalLogic.vidaMaxima(true))
-            };
-
-            var hpBarPokemon2 = new ProgressBar
-            {
-                Progress = ((double)GlobalVar.friendCoach.user.pokemons[1].hp / (double)GlobalLogic.vidaMaxima(true))
-            };
-
-            var hpBarPokemon3 = new ProgressBar
-            {
-                Progress = ((double)GlobalVar.friendCoach.user.pokemons[2].hp / (double)GlobalLogic.vidaMaxima(true))
-            };
-
-            var hpBarPokemon4 = new ProgressBar
-            {
-                Progress = ((double)GlobalVar.friendCoach.user.pokemons[3].hp / (double)GlobalLogic.vidaMaxima(true))
-            };
-
-            var hpBarPokemon5 = new ProgressBar
-            {
-                Progress = ((double)GlobalVar.friendCoach.user.pokemons[4].hp / (double)GlobalLogic.vidaMaxima(true))
-            };
-
-            var hpBarPokemon6 = new ProgressBar
-            {
-                Progress = ((double)GlobalVar.friendCoach.user.pokemons[5].hp / (double)GlobalLogic.vidaMaxima(true))
-            };
-
-            grid.Children.Add(hpBarPokemon1, 2, 0);
-            grid.Children.Add(hpBarPokemon2, 2, 1);
-            grid.Children.Add(hpBarPokemon3, 2, 2);
-            grid.Children.Add(hpBarPokemon4, 2, 3);
-            grid.Children.Add(hpBarPokemon5, 2, 4);
-            grid.Children.Add(hpBarPokemon6, 2, 5);
-
-            var buttonPokemon1 = new Button
+            var buttonPokemonSelected = new Button
             {
                 FontSize = 10,
                 Text = "Seleccionar",
                 StyleId = "0"
             };
 
-            var buttonPokemon2 = new Button
+            grid.Children.Add(namePokemons[0], 1, 0);
+            grid.Children.Add(namePokemons[1], 1, 1);
+            grid.Children.Add(namePokemons[2], 1, 2);
+            grid.Children.Add(namePokemons[3], 1, 3);
+            grid.Children.Add(namePokemons[4], 1, 4);
+            grid.Children.Add(namePokemons[5], 1, 5);
+            grid.Children.Add(buttonPokemonSelected, 1, 6);
+
+            namePokemons[0].SelectedIndexChanged += changeSelectedPicker;
+            namePokemons[1].SelectedIndexChanged += changeSelectedPicker;
+            namePokemons[2].SelectedIndexChanged += changeSelectedPicker;
+            namePokemons[3].SelectedIndexChanged += changeSelectedPicker;
+            namePokemons[4].SelectedIndexChanged += changeSelectedPicker;
+            namePokemons[5].SelectedIndexChanged += changeSelectedPicker;
+
+            void changeSelectedPicker(Object sender, EventArgs e)
             {
-                FontSize = 10,
-                Text = "Seleccionar",
-                StyleId = "1"
-            };
+                Picker nombrePokemon = (Picker)sender;
 
-            var buttonPokemon3 = new Button
-            {
-                FontSize = 10,
-                Text = "Seleccionar",
-                StyleId = "2"
-            };
-
-            var buttonPokemon4 = new Button
-            {
-                FontSize = 10,
-                Text = "Seleccionar",
-                StyleId = "3"
-            };
-
-            var buttonPokemon5 = new Button
-            {
-                FontSize = 10,
-                Text = "Seleccionar",
-                StyleId = "4"
-            };
-
-            var buttonPokemon6 = new Button
-            {
-                FontSize = 10,
-                Text = "Seleccionar",
-                StyleId = "5"
-            };
-
-            buttonPokemon1.Clicked += Button_click;
-            buttonPokemon2.Clicked += Button_click;
-            buttonPokemon3.Clicked += Button_click;
-            buttonPokemon4.Clicked += Button_click;
-            buttonPokemon5.Clicked += Button_click;
-            buttonPokemon6.Clicked += Button_click;
-
-            void Button_click(Object sender, EventArgs e)
-            {
-                Button boton = (Button)sender;
-
-                if (GlobalVar.friendCoach.user.pokemons[int.Parse(boton.StyleId)].hp > 0)
+                if (GlobalVar.friendCoach.pokemons.Count == 0)
                 {
-                    GlobalVar.pokAmigo = int.Parse(boton.StyleId);
-
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        await Navigation.PushAsync(new BattlePage());
-                    });
+                    GlobalVar.friendCoach.pokemons.Add(new Models.Pokemon.RootObject());
+                    GlobalVar.friendCoach.pokemons.Add(new Models.Pokemon.RootObject());
+                    GlobalVar.friendCoach.pokemons.Add(new Models.Pokemon.RootObject());
+                    GlobalVar.friendCoach.pokemons.Add(new Models.Pokemon.RootObject());
+                    GlobalVar.friendCoach.pokemons.Add(new Models.Pokemon.RootObject());
+                    GlobalVar.friendCoach.pokemons.Add(new Models.Pokemon.RootObject());
                 }
-            }
 
-            grid.Children.Add(buttonPokemon1, 3, 0);
-            grid.Children.Add(buttonPokemon2, 3, 1);
-            grid.Children.Add(buttonPokemon3, 3, 2);
-            grid.Children.Add(buttonPokemon4, 3, 3);
-            grid.Children.Add(buttonPokemon5, 3, 4);
-            grid.Children.Add(buttonPokemon6, 3, 5);
+                Models.Pokemon.RootObject pokemon = rep.ObtenerPokemon(nombrePokemon.SelectedItem.ToString());
+                GlobalVar.friendCoach.pokemons[int.Parse(nombrePokemon.StyleId)] = pokemon;
+
+                imagePokemons[int.Parse(nombrePokemon.StyleId)].Source = GlobalLogic.obtenerImagen(int.Parse(nombrePokemon.StyleId), true, true);
+            }
 
             return grid;
         }
