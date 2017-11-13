@@ -23,15 +23,14 @@ namespace appPokemon
 
             GlobalVar.InicializarVariables();
 
-            List<appPokemon.Models.User.Pokemon> lista;
-
             btnLogin.Clicked += LoginCommand;
             btnCreate.Clicked += CreateCommand;
 
             async void CreateCommand(Object sender, EventArgs e)
             {
-                bool result = await rep.CrearUser(txtUsername.Text, txtPass.Text);
-                if (result)
+                bool resultCreate = await rep.CrearUser(txtUsername.Text, txtPass.Text);
+
+                if (resultCreate)
                 {
                     lbError.TextColor = Color.Green;
                     lbError.Text = "User created";
@@ -45,14 +44,15 @@ namespace appPokemon
 
             async void LoginCommand(Object sender, EventArgs e)
             {
-                lista = await rep.Login(txtUsername.Text, txtPass.Text);
+                bool resultExist = await rep.UserExist(txtUsername.Text, txtPass.Text);
+                bool resultLogin = await rep.Login(txtUsername.Text, txtPass.Text);
 
-                if (lista != null)
+                if (resultExist)
                 {
                     lbError.TextColor = Color.Black;
                     lbError.Text = "LOADING";
 
-                    if (lista[0].name == "1")
+                    if (!resultLogin)
                     {
                         Device.BeginInvokeOnMainThread(async () =>
                         {
