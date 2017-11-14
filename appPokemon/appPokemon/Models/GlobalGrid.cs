@@ -16,8 +16,6 @@ namespace appPokemon.Models
         public static Grid gridFriendPokemon { get; set; }
         public static Grid gridMenu { get; set; }
 
-        public static Label labelHpTitle { get; set; }
-
         public static Grid gridEnemyData { get; set; }
         public static Image imageEnemyImage { get; set; }
 
@@ -26,6 +24,7 @@ namespace appPokemon.Models
 
         public static Label labelEnemyName { get; set; }
         public static Label labelEnemyLevel { get; set; }
+        public static Label labelEnemyHpTitle { get; set; }
         public static Grid gridEnemyHp { get; set; }
 
         public static ProgressBar progressBarEnemyHpBar { get; set; }
@@ -39,6 +38,7 @@ namespace appPokemon.Models
 
         public static Label labelFriendName { get; set; }
         public static Label labelFriendLevel { get; set; }
+        public static Label labelFriendHpTitle { get; set; }
         public static Grid gridFriendHp { get; set; }
 
         public static ProgressBar progressBarFriendHpBar { get; set; }
@@ -61,13 +61,6 @@ namespace appPokemon.Models
             gridFriendPokemon = new Grid();
             gridMenu = new Grid();
 
-            labelHpTitle = new Label
-            {
-                VerticalTextAlignment = TextAlignment.Start,
-                HorizontalTextAlignment = TextAlignment.End,
-                FontSize = 8
-            };
-
             gridEnemyData = new Grid();
             imageEnemyImage = new Image();
 
@@ -84,6 +77,12 @@ namespace appPokemon.Models
             {
                 VerticalTextAlignment = TextAlignment.Start,
                 HorizontalTextAlignment = TextAlignment.Center,
+                FontSize = 8
+            };
+            labelEnemyHpTitle = new Label
+            {
+                VerticalTextAlignment = TextAlignment.Start,
+                HorizontalTextAlignment = TextAlignment.End,
                 FontSize = 8
             };
             gridEnemyHp = new Grid();
@@ -112,6 +111,12 @@ namespace appPokemon.Models
             {
                 VerticalTextAlignment = TextAlignment.Start,
                 HorizontalTextAlignment = TextAlignment.Center,
+                FontSize = 8
+            };
+            labelFriendHpTitle = new Label
+            {
+                VerticalTextAlignment = TextAlignment.Start,
+                HorizontalTextAlignment = TextAlignment.End,
                 FontSize = 8
             };
             gridFriendHp = new Grid();
@@ -220,7 +225,7 @@ namespace appPokemon.Models
 
             gridEnemyValues.Children.Add(labelEnemyName, 0, 0);
             gridEnemyValues.Children.Add(labelEnemyLevel, 1, 0);
-            gridEnemyValues.Children.Add(labelHpTitle, 0, 1);
+            gridEnemyValues.Children.Add(labelEnemyHpTitle, 0, 1);
             gridEnemyValues.Children.Add(gridEnemyHp, 1, 1);
 
             gridEnemyHp.Children.Add(progressBarEnemyHpBar, 0, 0);
@@ -234,7 +239,7 @@ namespace appPokemon.Models
 
             gridFriendValues.Children.Add(labelFriendName, 0, 0);
             gridFriendValues.Children.Add(labelFriendLevel, 1, 0);
-            gridFriendValues.Children.Add(labelHpTitle, 0, 1);
+            gridFriendValues.Children.Add(labelFriendHpTitle, 0, 1);
             gridFriendValues.Children.Add(gridFriendHp, 1, 1);
 
             gridFriendHp.Children.Add(progressBarFriendHpBar, 0, 0);

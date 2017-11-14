@@ -1,4 +1,5 @@
-﻿using System;
+﻿using appPokemon.Models.Realm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,10 +18,10 @@ namespace appPokemon.Models
         public static Entrenador friendCoach { get; set; }
         public static Entrenador enemyCoach { get; set; }
 
-        public static Stat.RootObject friendStat { get; set; }
+        public static StatRealm friendStat { get; set; }
 
-        public static List<Move.RootObject> friendMoves { get; set; }
-        public static List<Move.RootObject> enemyMoves { get; set; }
+        public static List<MoveRealm> friendMoves { get; set; }
+        public static List<MoveRealm> enemyMoves { get; set; }
 
         public static void InicializarVariables()
         {
@@ -36,8 +37,8 @@ namespace appPokemon.Models
             enemyCoach = new Entrenador();
 
             // Se inicializan las listas de los ataques del amigo y del enemigo
-            friendMoves = new List<Move.RootObject>();
-            enemyMoves = new List<Move.RootObject>();
+            friendMoves = new List<MoveRealm>();
+            enemyMoves = new List<MoveRealm>();
         }
     }
 }
