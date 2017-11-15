@@ -11,9 +11,13 @@ namespace appPokemon
     {
         public App()
         {
+
             InitializeComponent();
 
-            MainPage = new NavigationPage(new appPokemon.LoginPage());
+            MainPage = new NavigationPage(new appPokemon.LoginPage())
+            {
+                BarBackgroundColor = Color.Red
+            };
         }
 
         protected override void OnStart()

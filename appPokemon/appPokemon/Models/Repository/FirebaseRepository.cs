@@ -104,6 +104,26 @@ namespace appPokemon.Models.Repository
             return false;
         }
 
+        //public async Task<bool> PostPokemons(List<User.Pokemon> pokemons, string username)
+        //{
+        //    var firebase = new FirebaseClient("https://apppokemon-ffdfb.firebaseio.com/");
+        //    var items = await firebase
+        //      .Child("users")
+        //      //.WithAuth("<Authentication Token>") // <-- Add Auth token if required. Auth instructions further down in readme.
+        //      .OrderByKey()
+        //      .OnceAsync<User.User>();
+
+        //    foreach (var item in items)
+        //    {
+        //        if (item.Object.name == username)
+        //        {
+        //            item.Object.pokemons = pokemons;
+        //            return true;
+        //        }
+        //    }
+        //    return false;
+        //}
+
         // El método del login devuelve la lista del usuario porque guardo los datos para saber si el usuario es la primera vez que inicia o no
         public async Task<bool> Login(string username, string password)
         {
@@ -116,7 +136,7 @@ namespace appPokemon.Models.Repository
 
             foreach (var item in items)
             {
-                if (item.Object.name == username && item.Object.pass == password)
+                if (item.Object.name == username && item.Object.pass == password )
                 {
                     GlobalVar.friendCoach.user = item.Object;
 
@@ -139,20 +159,16 @@ namespace appPokemon.Models.Repository
 
         //    // add new item to list of data 
         //    var item = await firebase
-        //      .Child("yourentity")
+        //      .Child("users")
+        //      .Child(usuario)
         //      //.WithAuth("<Authentication Token>") // <-- Add Auth token if required. Auth instructions further down in readme.
-        //      .PostAsync(new YourObject());
+        //      .PutAsync();
 
         //    // note that there is another overload for the PostAsync method which delegates the new key generation to the client
 
-        //    Console.WriteLine($"Key for the new item: {item.Key}");
+            
 
-        //    // add new item directly to the specified location (this will overwrite whatever data already exists at that location)
-        //    var item = await firebase
-        //      .Child("yourentity")
-        //      .Child("Ricardo")
-        //      //.WithAuth("<Authentication Token>") // <-- Add Auth token if required. Auth instructions further down in readme.
-        //      .PutAsync(new YourObject());
+           
 
 
         //    return false;

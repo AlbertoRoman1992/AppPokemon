@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Xamarin.Forms;
 
+
 namespace appPokemon.Models
 {
     public static class GlobalLogic
