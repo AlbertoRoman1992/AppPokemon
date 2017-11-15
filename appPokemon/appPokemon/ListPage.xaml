@@ -17,37 +17,37 @@
             <Frame CornerRadius="20" Margin="5,5,5,0" BackgroundColor="WhiteSmoke" OutlineColor="Black" Opacity="0.8" Padding="0">
                 <StackLayout Orientation="Horizontal" HeightRequest="65" VerticalOptions="Center" Margin="0,5,0,0" Opacity="0.8">
                     <Image x:Name="MyImage1" WidthRequest="65" Grid.Row="0" Margin="10,0,0,10" />
-                    <Picker x:Name="Picker1" StyleId="0" Title="Pokemon" HorizontalOptions="CenterAndExpand"/>
+                    <Picker x:Name="Picker1" WidthRequest="400" Margin="50,0,0,0" StyleId="0" Title="Pokemon" HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
             </Frame>
             <Frame CornerRadius="20" Margin="5,0,5,0" BackgroundColor="WhiteSmoke" OutlineColor="Black" Opacity="0.8" Padding="0">
                 <StackLayout Orientation="Horizontal" HeightRequest="65" VerticalOptions="Center" Margin="0,5,0,0" Opacity="0.8">
                     <Image x:Name="MyImage2" WidthRequest="65" Grid.Row="0" Margin="10,0,0,10" />
-                    <Picker x:Name="Picker2" StyleId="1" Title="Pokemon" HorizontalOptions="CenterAndExpand"/>
+                    <Picker x:Name="Picker2" WidthRequest="400" Margin="50,0,0,0" StyleId="1" Title="Pokemon" HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
             </Frame>
             <Frame CornerRadius="20" Margin="5,0,5,0" BackgroundColor="WhiteSmoke" OutlineColor="Black" Opacity="0.8" Padding="0">
                 <StackLayout Orientation="Horizontal" HeightRequest="65" VerticalOptions="Center" Margin="0,5,0,0" Opacity="0.8">
                     <Image x:Name="MyImage3" WidthRequest="65" Grid.Row="0" Margin="10,0,0,10" />
-                    <Picker x:Name="Picker3" StyleId="2" Title="Pokemon" HorizontalOptions="CenterAndExpand"/>
+                    <Picker x:Name="Picker3" WidthRequest="400" Margin="50,0,0,0" StyleId="2" Title="Pokemon" HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
             </Frame>
             <Frame CornerRadius="20" Margin="5,0,5,0" BackgroundColor="WhiteSmoke" OutlineColor="Black" Opacity="0.8" Padding="0">
                 <StackLayout Orientation="Horizontal" HeightRequest="65" VerticalOptions="Center" Margin="0,5,0,0" Opacity="0.8">
                     <Image x:Name="MyImage4" WidthRequest="65" Grid.Row="0" Margin="10,0,0,10" />
-                    <Picker x:Name="Picker4" StyleId="3" Title="Pokemon" HorizontalOptions="CenterAndExpand"/>
+                    <Picker x:Name="Picker4" WidthRequest="400" Margin="50,0,0,0" StyleId="3" Title="Pokemon" HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
             </Frame>
             <Frame CornerRadius="20" Margin="5,0,5,0" BackgroundColor="WhiteSmoke" OutlineColor="Black" Opacity="0.8" Padding="0">
                 <StackLayout Orientation="Horizontal" HeightRequest="65" VerticalOptions="Center" Margin="0,5,0,0" Opacity="0.8">
                     <Image x:Name="MyImage5" WidthRequest="65" Grid.Row="0" Margin="10,0,0,10" />
-                    <Picker x:Name="Picker5" StyleId="4" Title="Pokemon" HorizontalOptions="CenterAndExpand"/>
+                    <Picker x:Name="Picker5" WidthRequest="400" Margin="50,0,0,0" StyleId="4" Title="Pokemon" HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
             </Frame>
             <Frame CornerRadius="20" Margin="5,0,5,0" BackgroundColor="WhiteSmoke" OutlineColor="Black" Opacity="0.8" Padding="0">
                 <StackLayout Orientation="Horizontal" HeightRequest="65" VerticalOptions="Center" Margin="0,5,0,0" Opacity="0.8">
                     <Image x:Name="MyImage6" WidthRequest="65" Grid.Row="0" Margin="10,0,0,10" />
-                    <Picker x:Name="Picker6" StyleId="5" Title="Pokemon" HorizontalOptions="CenterAndExpand"/>
+                    <Picker x:Name="Picker6" WidthRequest="400" Margin="50,0,0,0" StyleId="5" Title="Pokemon" HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
             </Frame>
             <StackLayout Grid.Row="2" >
